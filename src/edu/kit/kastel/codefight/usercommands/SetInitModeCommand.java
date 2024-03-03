@@ -62,7 +62,8 @@ final class SetInitModeCommand implements Command {
         
         Memory.setMemoryInitType(type, seed);
         
-        return new CommandResult(CommandResultType.SUCCESS, SUCCESS_OUTPUT.formatted(strOldInitMode, strNewInitMode));
+        return strOldInitMode.equals(strNewInitMode) ? new CommandResult(CommandResultType.SUCCESS, null)
+                : new CommandResult(CommandResultType.SUCCESS, SUCCESS_OUTPUT.formatted(strOldInitMode, strNewInitMode));
     }
     
     private String getInitModeString(MemoryInitType initType, long seed) {
