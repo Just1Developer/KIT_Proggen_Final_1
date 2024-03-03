@@ -89,7 +89,7 @@ public class Memory {
      */
     public static void setMemoryInitType(MemoryInitType memoryInitType, long seed) {
         Memory.memoryInitType = memoryInitType;
-        if (memoryInitType == MemoryInitType.INIT_MODE_RANDOM ) {
+        if (memoryInitType == MemoryInitType.INIT_MODE_RANDOM) {
             randomCellGenerator = new Random(seed);
             cellGenerationSeed = seed;
         }

@@ -61,16 +61,21 @@ final class SetInitModeCommand implements Command {
     }
     
     private String getInitModeString(MemoryInitType initType, long seed) {
-        if (initType == MemoryInitType.INIT_MODE_RANDOM ) {
+        if (initType == MemoryInitType.INIT_MODE_RANDOM) {
             return "%s %d".formatted(initType, seed);
         }
         return initType.toString();
     }
     
-    // No error when unknown
+    /**
+     * Parses a string to a memory initialization mode.
+     * If no mode matches, null is returned instead of throwing an error like valueOf.
+     * @param argument The init mode string.
+     * @return The Memory Init Type.
+     */
     private MemoryInitType parseInitMode(String argument) {
         return switch (argument) {
-            case INIT_MODE_RANDOM -> MemoryInitType.INIT_MODE_RANDOM ;
+            case INIT_MODE_RANDOM -> MemoryInitType.INIT_MODE_RANDOM;
             case INIT_MODE_STOP -> MemoryInitType.INIT_MODE_STOP;
             default -> null;
         };
