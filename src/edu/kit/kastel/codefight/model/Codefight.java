@@ -159,7 +159,7 @@ public class Codefight {
         if (player.isDead()) {
             playingAIs.remove(player);
             // Check for overflow
-            if (currentAIindex >= playingAIs.size() - 1) {
+            if (currentAIindex >= playingAIs.size()) {
                 currentAIindex = 0;
             }
         } else {
