@@ -126,7 +126,7 @@ public class AIPlayer {
      * @param ptr The new memory pointer.
      */
     public void setMemoryPtr(int ptr) {
-        this.memoryPtr = Codefight.getMemory().sanitizeAddress(ptr);
+        this.memoryPtr = Memory.sanitizeAddress(ptr);
     }
     
     /**

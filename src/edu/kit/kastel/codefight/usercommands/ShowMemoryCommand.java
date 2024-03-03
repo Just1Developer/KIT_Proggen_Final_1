@@ -59,7 +59,7 @@ final class ShowMemoryCommand implements Command {
         // Get the in total longest string representations
         for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
             longestAddress = Math.max(longestAddress,
-                    getActualStringLength(ptr + startAddress));
+                    getActualStringLength(Memory.sanitizeAddress(ptr + startAddress)));
             longestCmdName = Math.max(longestCmdName,
                     getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getSavedCommandType()));
             longestEntryColA = Math.max(longestEntryColA,
@@ -69,7 +69,7 @@ final class ShowMemoryCommand implements Command {
         }
         
         for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
-            int address = Codefight.getMemory().sanitizeAddress(ptr + startAddress);
+            int address = Memory.sanitizeAddress(ptr + startAddress);
             detailBuilder.append(getDetailedCellCommand(Codefight.getMemory().getSingleCharacterRepresentation(address),
                     address, longestAddress, longestCmdName, longestEntryColA, longestEntryColB));
             if (ptr < actualSegmentLength - 1) {
@@ -77,11 +77,11 @@ final class ShowMemoryCommand implements Command {
             }
         }
         
-        int endAddress = Codefight.getMemory().sanitizeAddress(startAddress + actualSegmentLength - 1);
+        int endAddress = Memory.sanitizeAddress(startAddress + DETAIL_SEGMENT_LENGTH - 1);
         // Check if overtaken: Wrapped around and larger than start In that case we have mapped the entire memory
-        final boolean overtaken = endAddress >= startAddress && startAddress + actualSegmentLength > Memory.getMemorySize();
+        final boolean overtaken = endAddress >= startAddress && startAddress + DETAIL_SEGMENT_LENGTH > Memory.getMemorySize();
         if (overtaken) {
-            endAddress = Codefight.getMemory().sanitizeAddress(startAddress - 1);
+            endAddress = Memory.sanitizeAddress(startAddress - 1);
         }
         String memory = Codefight.getMemory().toString(startAddress, endAddress);
         

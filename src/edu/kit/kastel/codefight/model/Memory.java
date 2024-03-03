@@ -195,7 +195,7 @@ public class Memory {
      * @param address The address.
      * @return Sanitized (valid) address
      */
-    public int sanitizeAddress(int address) {
+    public static int sanitizeAddress(int address) {
         int sanitized = address % getMemorySize();
         if (sanitized < 0) {
             sanitized += getMemorySize();
