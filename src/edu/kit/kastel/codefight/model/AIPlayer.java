@@ -14,9 +14,8 @@ import java.util.Objects;
  */
 public class AIPlayer {
     
-    private static final String STATUS_ALIVE = "RUNNING";
-    private static final String STATUS_DEAD = "STOPPED";
-    private static final String AI_STRING_FORMAT = "%s (%s@%d)%nNext Command: %s @%d";
+    private static final String AI_STRING_FORMAT_DEAD = "%s (STOPPED@%d)";
+    private static final String AI_STRING_FORMAT_ALIVE = "%s (RUNNING@%d)%nNext Command: %s @%d";
     private static final String PERISH_MESSAGE = "%s executed %d steps until stopping.%n";
     private static final String DUPLICATE_NAME_FORMAT = "%s#%d";
 
@@ -197,7 +196,8 @@ public class AIPlayer {
     
     @Override
     public String toString() {
-        return AI_STRING_FORMAT.formatted(getAIName(), isDead() ? STATUS_DEAD : STATUS_ALIVE, getMoveCount(),
+        return isDead() ? AI_STRING_FORMAT_DEAD.formatted(getAIName(), getMoveCount())
+                : AI_STRING_FORMAT_ALIVE.formatted(getAIName(), getMoveCount(),
                 AICommandFactory.commandToString(Codefight.getMemory().readMemory(getMemoryPtr()).getCommand()), getMemoryPtr());
     }
 }
