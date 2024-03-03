@@ -47,6 +47,8 @@ final class ShowMemoryCommand implements Command {
             return new CommandResult(CommandResultType.FAILURE, ADDRESS_OUT_OF_BOUNDS);
         }
         
+        final int actualSegmentLength = Math.min(DETAIL_SEGMENT_LENGTH, Memory.getMemorySize());
+        
         StringBuilder detailBuilder = new StringBuilder();
         
         int longestAddress = 0;
@@ -55,7 +57,7 @@ final class ShowMemoryCommand implements Command {
         int longestEntryColB = 0;
         
         // Get the in total longest string representations
-        for (int ptr = 0; ptr < DETAIL_SEGMENT_LENGTH; ++ptr) {
+        for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
             longestAddress = Math.max(longestAddress,
                     getActualStringLength(ptr + startAddress));
             longestCmdName = Math.max(longestCmdName,
@@ -66,18 +68,18 @@ final class ShowMemoryCommand implements Command {
                     getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()));
         }
         
-        for (int ptr = 0; ptr < DETAIL_SEGMENT_LENGTH; ++ptr) {
+        for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
             int address = Codefight.getMemory().sanitizeAddress(ptr + startAddress);
             detailBuilder.append(getDetailedCellCommand(Codefight.getMemory().getSingleCharacterRepresentation(address),
                     address, longestAddress, longestCmdName, longestEntryColA, longestEntryColB));
-            if (ptr < DETAIL_SEGMENT_LENGTH - 1) {
+            if (ptr < actualSegmentLength - 1) {
                 detailBuilder.append(System.lineSeparator());
             }
         }
         
-        int endAddress = Codefight.getMemory().sanitizeAddress(startAddress + DETAIL_SEGMENT_LENGTH - 1);
+        int endAddress = Codefight.getMemory().sanitizeAddress(startAddress + actualSegmentLength - 1);
         // Check if overtaken: Wrapped around and larger than start In that case we have mapped the entire memory
-        final boolean overtaken = endAddress >= startAddress && startAddress + DETAIL_SEGMENT_LENGTH > Memory.getMemorySize();
+        final boolean overtaken = endAddress >= startAddress && startAddress + actualSegmentLength > Memory.getMemorySize();
         if (overtaken) {
             endAddress = Codefight.getMemory().sanitizeAddress(startAddress - 1);
         }
