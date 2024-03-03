@@ -13,7 +13,7 @@ import edu.kit.kastel.codefight.aicommands.AICommandType;
 public class MemoryCell {
     
     private final AICommandType commandType;
-    private final int argumentA;
+    private int argumentA;
     private int argumentB;
     private AIPrintWrapper lastModifiedPrinter;
     private boolean isUnmodified;
@@ -94,6 +94,16 @@ public class MemoryCell {
      */
     public int getArgumentA() {
         return argumentA;
+    }
+    
+    /**
+     * Sets the first argument saved in the memory cell.
+     * @param value The new argument value.
+     * @param printWrapper The printWrapper of the AI that modified the cell.
+     */
+    public void setArgumentA(int value, AIPrintWrapper printWrapper) {
+        this.argumentA = value;
+        this.lastModifiedPrinter = printWrapper;
     }
     
     /**

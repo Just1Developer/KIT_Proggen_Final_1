@@ -3,6 +3,7 @@ package edu.kit.kastel.codefight.aicommands;
 import edu.kit.kastel.codefight.model.AIPlayer;
 import edu.kit.kastel.codefight.model.Codefight;
 import edu.kit.kastel.codefight.model.Memory;
+import edu.kit.kastel.codefight.model.MemoryCell;
 
 /**
  * The jump command. Teleports the player to a different address, but only if the value of
@@ -45,8 +46,8 @@ public class JMZCommand implements AICommand {
     @Override
     public void execute(Codefight ignored, AIPlayer player) {
         Memory memory = Codefight.getMemory();
-        int memCellArgB = memory.readMemory(player.getMemoryPtr() + getSecondArgument()).getArgumentB();
-        if (memCellArgB == JUMP_CONDITION_VALUE) {
+        MemoryCell checkCell = memory.readMemory(player.getMemoryPtr() + getSecondArgument());
+        if (checkCell.getArgumentB() == JUMP_CONDITION_VALUE) {
             player.setMemoryPtr(player.getMemoryPtr() + getFirstArgument());
         } else {
             player.moveByOne();

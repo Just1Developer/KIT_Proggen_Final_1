@@ -45,9 +45,9 @@ public class CMPCommand implements AICommand {
         final int firstArgPtr = player.getMemoryPtr() + argumentA;
         final int secondArgPtr = player.getMemoryPtr() + argumentB;
         Memory memory = Codefight.getMemory();
-        if (memory.readMemory(firstArgPtr).getArgumentA()
-            == memory.readMemory(secondArgPtr).getArgumentB()) {
-            codefight.skipNextTurn();
+        if (memory.readMemory(firstArgPtr).getArgumentA() != memory.readMemory(secondArgPtr).getArgumentB()) {
+            player.moveByOne();
+            //codefight.skipNextTurn();
         }
         
         player.moveByOne();

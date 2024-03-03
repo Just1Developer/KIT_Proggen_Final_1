@@ -47,7 +47,7 @@ public class SWAPCommand implements AICommand {
         final MemoryCell firstCell = memory.readMemory(player.getMemoryPtr() + argumentA);
         final MemoryCell secondCell = memory.readMemory(player.getMemoryPtr() + argumentB);
         int temp = firstCell.getArgumentA();
-        firstCell.setArgumentB(secondCell.getArgumentB(), player.getPrintWrapper());
+        firstCell.setArgumentA(secondCell.getArgumentB(), player.getPrintWrapper());
         secondCell.setArgumentB(temp, player.getPrintWrapper());
         
         player.moveByOne();

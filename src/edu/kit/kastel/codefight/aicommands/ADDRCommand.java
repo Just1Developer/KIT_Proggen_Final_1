@@ -44,9 +44,8 @@ public class ADDRCommand implements AICommand {
     @Override
     public void execute(Codefight ignored, AIPlayer player) {
         Memory memory = Codefight.getMemory();
-        MemoryCell storage = memory.readMemory(player.getMemoryPtr());
         MemoryCell target = memory.readMemory(player.getMemoryPtr() + argumentB);
-        target.setArgumentB(storage.getArgumentA() + target.getArgumentB(), player.getPrintWrapper());
+        target.setArgumentB(argumentA + target.getArgumentB(), player.getPrintWrapper());
         
         player.moveByOne();
     }
