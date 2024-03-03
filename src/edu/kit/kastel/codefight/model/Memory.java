@@ -243,7 +243,7 @@ public class Memory {
                 System.err.println(ERROR_AI_INSTRUCTION_OUT_OF_MEM);
                 return false;
             }
-            if (currentPtr + player.getInstructions().size() > memorySize) {
+            if ((int) Math.round(currentPtr) + player.getInstructions().size() > memorySize) {
                 System.err.println(ERROR_INIT_OUT_OF_MEMORY);
                 return false;
             }
@@ -252,8 +252,8 @@ public class Memory {
         
         currentPtr = 0;
         for (AIPlayer player : players) {
-            populateMemory((int) currentPtr, player.getInstructions(), player.getPrintWrapper());
-            int ptr = (int) currentPtr;
+            int ptr = (int) Math.round(currentPtr);
+            populateMemory(ptr, player.getInstructions(), player.getPrintWrapper());
             // Find the first non-STOP command. There has to be one.
             while (readMemory(ptr).getSavedCommandType() == AICommandType.STOP) {
                 ptr++;
