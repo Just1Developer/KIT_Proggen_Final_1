@@ -278,7 +278,7 @@ public class Codefight {
         // Now fix all first occurrences of player's names
         for (AIPlayer player : players) {
             int occurrence = nameOccurrences.getOrDefault(player.getAIName(), 0);
-            if (occurrence > 0) {
+            if (occurrence > 1) {
                 player.setNameToDuplicate(0);
             }
         }
