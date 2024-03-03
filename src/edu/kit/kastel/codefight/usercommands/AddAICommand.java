@@ -106,7 +106,11 @@ final class AddAICommand implements Command {
             int argA;
             int argB;
             
-            type = AICommandType.valueOf(matcher.group(GROUP_INDEX_TYPE));
+            type = parseAICommandType(matcher.group(GROUP_INDEX_TYPE));
+            if (type == null) {
+                return null;
+            }
+            
             try {
                 argA = Integer.parseInt(matcher.group(GROUP_INDEX_ARG_A));
                 argB = Integer.parseInt(matcher.group(GROUP_INDEX_ARG_B));
@@ -123,6 +127,21 @@ final class AddAICommand implements Command {
             commands.add(AICommandFactory.createCommand(type, argA, argB));
         }
         return hasFoundNonStopCommand ? commands : null;
+    }
+    
+    /**
+     * Parses an AI Command Type from a string. If no match could be found,
+     * returns null.
+     * @param argument The String to parse.
+     * @return The appropriate command type or null.
+     */
+    private static AICommandType parseAICommandType(String argument) {
+        for (AICommandType type : AICommandType.values()) {
+            if (type.toString().equals(argument)) {
+                return type;
+            }
+        }
+        return null;
     }
     
     @Override
