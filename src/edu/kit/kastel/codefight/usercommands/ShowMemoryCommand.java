@@ -79,7 +79,7 @@ final class ShowMemoryCommand implements Command {
         // Check if overtaken: Wrapped around and larger than start In that case we have mapped the entire memory
         final boolean overtaken = endAddress >= startAddress && startAddress + DETAIL_SEGMENT_LENGTH > Memory.getMemorySize();
         if (overtaken) {
-            endAddress = startAddress - 1;
+            endAddress = Codefight.getMemory().sanitizeAddress(startAddress - 1);
         }
         String memory = Codefight.getMemory().toString(startAddress, endAddress);
         
