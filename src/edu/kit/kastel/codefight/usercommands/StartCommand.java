@@ -35,6 +35,10 @@ final class StartCommand implements Command {
         if (model.getTotalPlayingAICount() > Main.getPrintWrapperCount()) {
             return new CommandResult(CommandResultType.FAILURE, TOO_FEW_PRINTERS);
         }
+        if (!model.wasSetupSuccess()) {
+            // Error was already printed
+            return new CommandResult(CommandResultType.FAILURE, null);
+        }
         Main.playCodefight(model);
         return new CommandResult(CommandResultType.SUCCESS, SUCCESS_MESSAGE);
     }

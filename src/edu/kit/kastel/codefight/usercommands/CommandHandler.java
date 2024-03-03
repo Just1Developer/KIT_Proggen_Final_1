@@ -15,8 +15,11 @@ import java.util.Scanner;
  */
 public class CommandHandler {
     
+    /**
+     * The prefix for any error messages.
+     */
+    public static final String ERROR_PREFIX = "Error, ";
     private static final String COMMAND_SEPARATOR_REGEX = " +";
-    private static final String ERROR_PREFIX = "Error, ";
     private static final String COMMAND_NOT_FOUND_FORMAT = "Command '%s' not found!";
     private static final String WRONG_ARGUMENTS_COUNT_FORMAT = "Wrong number of arguments for command '%s'!";
     private static final String WRONG_GAMEPHASE_FORMAT = "This command is not valid in the GamePhase %s";

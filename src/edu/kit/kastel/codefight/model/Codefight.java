@@ -27,6 +27,7 @@ public class Codefight {
     private final List<AIPlayer> playingAIs;
     private int currentAIindex;
     private boolean skipNextAICommand;
+    private final boolean setupSuccess;
     
     /**
      * Creates a new Codefight game on a memory with the given size using the listed AIs.
@@ -38,6 +39,7 @@ public class Codefight {
         
         if (aiNames.length != playingAIs.size()) {
             // One AI was not added. An error will occur anyway, rest of setup can be skipped
+            setupSuccess = false;
             return;
         }
         
@@ -49,7 +51,15 @@ public class Codefight {
             player.reset();
             player.setPrintWrapper(Main.getPrintWrapper(i));
         }
-        memory.reset(playingAIs);
+        setupSuccess = memory.reset(playingAIs);
+    }
+    
+    /**
+     * Gets if the setup of the Codefight instance was successful.
+     * @return If the setup was successful.
+     */
+    public boolean wasSetupSuccess() {
+        return setupSuccess;
     }
     
     /**
@@ -223,14 +233,6 @@ public class Codefight {
             }
         }
         return false;
-    }
-    
-    /**
-     * Gets the amount of AIs currently registered.
-     * @return The amount of AIs
-     */
-    public static int getAICount() {
-        return AVAILABLE_AI_PLAYERS.size();
     }
     
     /**

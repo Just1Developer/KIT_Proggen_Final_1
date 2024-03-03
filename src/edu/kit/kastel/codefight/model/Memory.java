@@ -5,6 +5,7 @@ import edu.kit.kastel.codefight.aicommands.AICommand;
 import edu.kit.kastel.codefight.aicommands.AICommandType;
 import edu.kit.kastel.codefight.model.diagnostic.InvalidPointerException;
 import edu.kit.kastel.codefight.model.diagnostic.OutOfMemoryException;
+import edu.kit.kastel.codefight.usercommands.CommandHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +19,17 @@ import java.util.Random;
  */
 public class Memory {
     
-    private static final String ERROR_MAX_MEM = "Error: Trying to allocate too much memory. Max size is %d.";
-    private static final String ERROR_MIN_MEM = "Error: Too little memory allocated. Minimum size is %d.";
-    private static final String ERROR_INIT_OUT_OF_MEMORY = "Error: Too little memory for too much instructions at setup!";
-    private static final String ERROR_AI_INSTRUCTION_OUT_OF_MEM = "Error: AI is setting up too many instructions in too little space.";
-    private static final String ERROR_INVALID_POINTER = "Error: Invalid Memory Address: %d";
+    private static final String INTEGER_FORMAT = "%d";
+    private static final String ERROR_MAX_MEM = "%strying to allocate too much memory. Max size is %s."
+            .formatted(CommandHandler.ERROR_PREFIX, INTEGER_FORMAT);
+    private static final String ERROR_MIN_MEM = "%stoo little memory allocated. Minimum size is %s."
+            .formatted(CommandHandler.ERROR_PREFIX, INTEGER_FORMAT);
+    private static final String ERROR_INIT_OUT_OF_MEMORY = "%stoo little memory for too much instructions at setup!"
+            .formatted(CommandHandler.ERROR_PREFIX);
+    private static final String ERROR_AI_INSTRUCTION_OUT_OF_MEM = "%sAI is setting up too many instructions in too little space."
+            .formatted(CommandHandler.ERROR_PREFIX);
+    private static final String ERROR_INVALID_POINTER = "%sinvalid Memory Address: %s"
+            .formatted(CommandHandler.ERROR_PREFIX, INTEGER_FORMAT);
     
     private static Random randomCellGenerator;
     private static long cellGenerationSeed;
@@ -40,15 +47,15 @@ public class Memory {
     
     /**
      * Initializes memory size, init type and seed parameters.
-     * @throws OutOfMemoryException If the specified memory size is larger than the maximum memory size.
-     * @throws IllegalArgumentException If the specified memory size is smaller than the minimum required memory size.
+     * @throws IllegalArgumentException If the specified memory size is smaller than the minimum required memory size
+     *        or larger than the maximum memory size.
      * @param memorySize The size of the memory unit.
      * @param memoryInitType The initialization type of unpopulated memory cells.
      * @param seed The seed for the random generator. If init type is STOP_FILL, parameter will be ignored.
      */
     public static void initMemory(int memorySize, MemoryInitType memoryInitType, long seed) {
         if (memorySize > Main.MAX_MEMORY_SIZE) {
-            throw new OutOfMemoryException(ERROR_MAX_MEM.formatted(Main.MAX_MEMORY_SIZE));
+            throw new IllegalArgumentException(ERROR_MAX_MEM.formatted(Main.MAX_MEMORY_SIZE));
         }
         if (memorySize < Main.MIN_MEMORY_SIZE) {
             throw new IllegalArgumentException(ERROR_MIN_MEM.formatted(Main.MIN_MEMORY_SIZE));
@@ -218,28 +225,36 @@ public class Memory {
      * Populates the remaining spaces according to the memory fill type.
      * <p></p>
      * Also resets the cell generation Random object.
+     * Returns true if the reset failed.
      *
      * @throws OutOfMemoryException If the AIs try to override already populated memory at setup.
      * @param players The players that will be playing this round.
+     * @return If the reset was successful.
      */
-    void reset(List<AIPlayer> players) {
+    boolean reset(List<AIPlayer> players) {
         populateEntireMemory();
         final int spacing = memorySize / players.size();
         int currentPtr = 0;
+        // First, assert space validity
         for (AIPlayer player : players) {
-            
-            // Guard clause
             if (spacing < player.getInstructions().size()) {
-                throw new OutOfMemoryException(ERROR_AI_INSTRUCTION_OUT_OF_MEM);
+                System.err.println(ERROR_AI_INSTRUCTION_OUT_OF_MEM);
+                return false;
             }
             if (currentPtr + player.getInstructions().size() > memorySize) {
-                throw new OutOfMemoryException(ERROR_INIT_OUT_OF_MEMORY);
+                System.err.println(ERROR_INIT_OUT_OF_MEMORY);
+                return false;
             }
-            
+            currentPtr += spacing;
+        }
+        
+        currentPtr = 0;
+        for (AIPlayer player : players) {
             player.setMemoryPtr(currentPtr);
             populateMemory(currentPtr, player.getInstructions(), player.getPrintWrapper());
             currentPtr += spacing;
         }
+        return true;
     }
     
     /**
