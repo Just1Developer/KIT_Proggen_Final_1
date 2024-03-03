@@ -233,8 +233,8 @@ public class Memory {
      */
     boolean reset(List<AIPlayer> players) {
         populateEntireMemory();
-        final int spacing = memorySize / players.size();
-        int currentPtr = 0;
+        final double spacing = (double) memorySize / players.size();
+        double currentPtr = 0;
         // First, assert space validity
         for (int i = 0; i < players.size(); i++) {
             AIPlayer player = players.get(i);
@@ -252,8 +252,8 @@ public class Memory {
         
         currentPtr = 0;
         for (AIPlayer player : players) {
-            populateMemory(currentPtr, player.getInstructions(), player.getPrintWrapper());
-            int ptr = currentPtr;
+            populateMemory((int) currentPtr, player.getInstructions(), player.getPrintWrapper());
+            int ptr = (int) currentPtr;
             // Find the first non-STOP command. There has to be one.
             while (readMemory(ptr).getSavedCommandType() == AICommandType.STOP) {
                 ptr++;
