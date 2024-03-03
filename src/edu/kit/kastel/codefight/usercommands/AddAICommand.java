@@ -74,7 +74,7 @@ final class AddAICommand implements Command {
         if (instructions == null) {
             return new CommandResult(CommandResultType.FAILURE, ERROR_PARSE_INSTRUCTIONS);
         }
-        if (instructions.size() > Memory.getMemorySize() / 2) {
+        if (instructions.size() > Math.ceil(Memory.getMemorySize() / 2.0)) {
             return new CommandResult(CommandResultType.FAILURE, TOO_MANY_INSTRUCTIONS);
         }
         
