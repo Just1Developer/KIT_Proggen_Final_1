@@ -321,13 +321,15 @@ public class Memory {
         }
         
         MemoryCell cell = readMemory(cellAddress);
-        if (cell.isUnmodified()) {
-            return Main.getMemorySymbol(Main.INDEX_UNMODIFIED);
+        AIPrintWrapper printWrapper = cell.getPrintWrapper();
+        
+        if (cell.isBomb() && printWrapper != null) {
+            return printWrapper.bombSymbol();
         }
         
-        // Presence is asserted via isUnmodified call
-        AIPrintWrapper printWrapper = cell.getPrintWrapper();
-        return cell.isBomb() ? printWrapper.bombSymbol() : printWrapper.defaultSymbol();
+        // InUnmodified is asserted because of isBomb(). If it was modified, printWrapper would be != null.
+        
+        return printWrapper == null ? Main.getMemorySymbol(Main.INDEX_UNMODIFIED) : printWrapper.defaultSymbol();
     }
 
 }

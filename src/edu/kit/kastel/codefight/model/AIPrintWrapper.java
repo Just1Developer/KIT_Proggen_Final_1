@@ -11,10 +11,11 @@ import java.util.Objects;
  */
 public record AIPrintWrapper(String defaultSymbol, String bombSymbol) {
     
+    private static final String EMPTY_STRING = "";
     /**
-     * A default AI PrintWrapper with just null entries.
+     * A default AI PrintWrapper with just empty String entries.
      */
-    public static final AIPrintWrapper NULL_WRAPPER = new AIPrintWrapper(null, null);
+    public static final AIPrintWrapper NULL_WRAPPER = new AIPrintWrapper(EMPTY_STRING, EMPTY_STRING);
     
     /**
      * Constructs a new print wrapper.

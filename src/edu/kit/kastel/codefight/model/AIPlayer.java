@@ -34,7 +34,7 @@ public class AIPlayer {
     public AIPlayer(String name, List<AICommand> commands) {
         this.name = name;
         this.instructions = commands;
-        this.printWrapper = AIPrintWrapper.NULL_WRAPPER;
+        this.printWrapper = null;
         reset();
     }
     
@@ -54,17 +54,15 @@ public class AIPlayer {
     
     /**
      * Sets the name of the AI to a duplicate format with the ID.
-     * Returns the player object itself to allow for inlining of this method.
+     *
      * @param id The ID of the AI, so the duplicate number.
-     * @return The player object itself.
      */
-    public AIPlayer setNameToDuplicate(int id) {
+    public void setNameToDuplicate(int id) {
         this.name = DUPLICATE_NAME_FORMAT.formatted(this.name, id);
-        return this;
     }
     
     /**
-     * Gets the PrintWrapper for this AI.
+     * Gets the PrintWrapper for this AI. May be null.
      * @return This AI's PrintWrapper.
      */
     public AIPrintWrapper getPrintWrapper() {
