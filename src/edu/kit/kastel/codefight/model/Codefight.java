@@ -2,6 +2,7 @@ package edu.kit.kastel.codefight.model;
 
 import edu.kit.kastel.codefight.Main;
 import edu.kit.kastel.codefight.aicommands.AICommand;
+import edu.kit.kastel.codefight.aicommands.AICommandFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,11 @@ public class Codefight {
      * @return List of all AIs.
      */
     public List<AIPlayer> getTotalIngameAIs() {
-        return totalIngameAIs.stream()
-                .map(AIPlayer::new)
-                .toList();
+        List<AIPlayer> copy = new ArrayList<>();
+        for (AIPlayer player : totalIngameAIs) {
+            copy.add(new AIPlayer(player));
+        }
+        return copy;
     }
     
     /**
@@ -67,9 +70,11 @@ public class Codefight {
      * @return List of all alive AIs.
      */
     public List<AIPlayer> getAliveAIs() {
-        return playingAIs.stream()
-                .map(AIPlayer::new)
-                .toList();
+        List<AIPlayer> copy = new ArrayList<>();
+        for (AIPlayer player : playingAIs) {
+            copy.add(new AIPlayer(player));
+        }
+        return copy;
     }
     
     /**

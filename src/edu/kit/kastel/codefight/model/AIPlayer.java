@@ -3,6 +3,7 @@ package edu.kit.kastel.codefight.model;
 import edu.kit.kastel.codefight.aicommands.AICommand;
 import edu.kit.kastel.codefight.aicommands.AICommandFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -147,9 +148,11 @@ public class AIPlayer {
      * @return A copy of the commands.
      */
     public List<AICommand> getInstructions() {
-        return instructions.stream()
-                .map(cmd -> AICommandFactory.createCommand(cmd.getType(), cmd.getFirstArgument(), cmd.getSecondArgument()))
-                .toList();
+        List<AICommand> copy = new ArrayList<>();
+        for (AICommand cmd : instructions) {
+            copy.add(AICommandFactory.createCommand(cmd.getType(), cmd.getFirstArgument(), cmd.getSecondArgument()));
+        }
+        return copy;
     }
     
     /**
