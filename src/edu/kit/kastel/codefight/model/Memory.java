@@ -148,9 +148,6 @@ public class Memory {
     private void writeToMemory(final int address, final MemoryCell content, AIPrintWrapper lastModifiedWrapper, boolean isUnmodified) {
         int sanitizedAddr = sanitizeAddress(address);
         content.setLastModifiedBy(lastModifiedWrapper, isUnmodified);
-        if (memory.containsKey(sanitizedAddr) && isUnmodified) {
-            content.setUnmodified(true);
-        }
         memory.put(sanitizedAddr, content);
     }
     
