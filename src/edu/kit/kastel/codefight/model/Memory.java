@@ -296,7 +296,11 @@ public class Memory {
         StringBuilder memoryBuilder = new StringBuilder();
         for (int ptr = 0; ptr < memorySize; ptr++) {
             assert memory.containsKey(ptr);
-            if (ptr == startAddressMarker || ptr == endAddressMarker) {
+            // Separate If Statements to account for start = end
+            if (ptr == startAddressMarker) {
+                memoryBuilder.append(Main.getMemorySymbol(Main.INDEX_EDGE_SYMBOL));
+            }
+            if (ptr == endAddressMarker) {
                 memoryBuilder.append(Main.getMemorySymbol(Main.INDEX_EDGE_SYMBOL));
             }
             memoryBuilder.append(getSingleCharacterRepresentation(ptr));
