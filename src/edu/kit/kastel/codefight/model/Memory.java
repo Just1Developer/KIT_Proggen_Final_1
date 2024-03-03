@@ -321,7 +321,7 @@ public class Memory {
         }
         
         MemoryCell cell = readMemory(cellAddress);
-        if (cell.getPrintWrapper() == null || cell.getPrintWrapper().equals(AIPrintWrapper.NULL_WRAPPER)) {
+        if (cell.isUnmodified()) {
             return Main.getMemorySymbol(Main.INDEX_UNMODIFIED);
         }
         

@@ -73,6 +73,14 @@ public class MemoryCell {
     }
     
     /**
+     * Gets if the cell has been unmodified since the start of the game.
+     * @return If the cell is unmodified since start.
+     */
+    boolean isUnmodified() {
+        return this.isUnmodified;
+    }
+    
+    /**
      * Sets the unmodified parameter of the cell to true or false.
      * @param unmodified If the cell is unmodified.
      */

@@ -48,6 +48,10 @@ public class CMPCommand implements AICommand {
         if (memory.readMemory(firstArgPtr).getArgumentA() != memory.readMemory(secondArgPtr).getArgumentB()) {
             player.moveByOne();
             //codefight.skipNextTurn();
+            /* Commit message on removal:
+Removed SkipNextAI Functionality
+- That was a misinterpretation of the CMP command on my part apparently
+            * */
         }
         
         player.moveByOne();
