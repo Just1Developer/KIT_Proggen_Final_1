@@ -158,9 +158,15 @@ public class Codefight {
         cmd.execute(this, player);
         if (player.isDead()) {
             playingAIs.remove(player);
+            // Check for overflow
+            if (currentAIindex >= playingAIs.size() - 1) {
+                currentAIindex = 0;
+            }
+        } else {
+            // Account for list shrinking because of removal
+            increaseAICounter();
         }
         player.increaseMoveCount();
-        increaseAICounter();
     }
     
     /**
