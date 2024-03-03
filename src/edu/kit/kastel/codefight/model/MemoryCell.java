@@ -149,9 +149,12 @@ public class MemoryCell {
      * @return If the command is a bomb.
      */
     public boolean isBomb() {
-        return !isUnmodified && (getSavedCommandType() == AICommandType.STOP
+        if (isUnmodified) {
+            return false;
+        }
+        return getSavedCommandType() == AICommandType.STOP
                 || (getSavedCommandType() == AICommandType.JMP && getArgumentA() == 0)
-                || (getSavedCommandType() == AICommandType.JMZ && getArgumentA() == 0 && getArgumentB() == 0));
+                || (getSavedCommandType() == AICommandType.JMZ && getArgumentA() == 0 && getArgumentB() == 0);
     }
     
     /**

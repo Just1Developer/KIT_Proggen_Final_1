@@ -23,6 +23,7 @@ final class SetInitModeCommand implements Command {
     private static final String ERROR_SEED_NAN = "The seed must be a number between %d and %d".formatted(UPPER_BOUND, LOWER_BOUND);
     private static final String ERROR_INVALID_INIT_MODE = "Unknown init mode: %s, options are: INIT_MODE_RANDOM, INIT_MODE_STOP";
     private static final String ERROR_INIT_STOP_ARGS = "INIT_MODE_STOP does not take arguments.";
+    private static final String INIT_MODE_STRING_FORMAT = "%s %d";
     private static final String SUCCESS_OUTPUT = "Changed init mode from %s to %s";
     private static final String INIT_MODE_RANDOM = "INIT_MODE_RANDOM";
     private static final String INIT_MODE_STOP = "INIT_MODE_STOP";
@@ -72,7 +73,7 @@ final class SetInitModeCommand implements Command {
     
     private String getInitModeString(MemoryInitType initType, long seed) {
         if (initType == MemoryInitType.INIT_MODE_RANDOM) {
-            return "%s %d".formatted(initType, seed);
+            return INIT_MODE_STRING_FORMAT.formatted(initType, seed);
         }
         return initType.toString();
     }

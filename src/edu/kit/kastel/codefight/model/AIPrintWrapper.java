@@ -1,5 +1,7 @@
 package edu.kit.kastel.codefight.model;
 
+import java.util.Objects;
+
 /**
  * This class is a wrapper that contains the Symbols for AI printing outputs.
  *
@@ -53,5 +55,10 @@ public record AIPrintWrapper(String defaultSymbol, String bombSymbol) {
             return false;
         }
         return obj.hashCode() == this.hashCode();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(defaultSymbol, bombSymbol);
     }
 }

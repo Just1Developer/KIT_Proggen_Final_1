@@ -6,7 +6,7 @@ package edu.kit.kastel.codefight.model.diagnostic;
  *
  * @author uwwfh
  */
-public class OutOfMemoryException extends RuntimeException {
+public class OutOfMemoryException extends IllegalStateException {
     /**
      * Constructs a new Out of Memory Exception with a message.
      * @param message An error message with some information.

@@ -5,7 +5,7 @@ package edu.kit.kastel.codefight.model.diagnostic;
  *
  * @author uwwfh
  */
-public class InvalidPointerException extends RuntimeException {
+public class InvalidPointerException extends IllegalArgumentException {
     /**
      * Constructs a new Invalid Pointer Exception with a message.
      * @param message An error message with some information.
