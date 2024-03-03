@@ -66,11 +66,22 @@ public class MemoryCell {
     
     /**
      * Sets the print wrapper for printing to memory to the specified one.
+     * If the printWrapper is not null, the cell will be marked as modified.
      * @param printWrapper The printWrapper of the AI that modified the cell.
      */
-    public void setLastModifiedBy(AIPrintWrapper printWrapper) {
+    void setLastModifiedBy(AIPrintWrapper printWrapper) {
+        setLastModifiedBy(printWrapper, true);
+    }
+    
+    /**
+     * Sets the print wrapper for printing to memory to the specified one.
+     * If markAsModified is false or the printWrapper is null, the modified state will remain as is.
+     * @param printWrapper The printWrapper of the AI that modified the cell.
+     * @param markAsModified If the cell should be marked as modified.
+     */
+    void setLastModifiedBy(AIPrintWrapper printWrapper, boolean markAsModified) {
         lastModifiedPrinter = printWrapper;
-        if (printWrapper != null) {
+        if (printWrapper != null && markAsModified) {
             this.setUnmodified(false);
         }
     }

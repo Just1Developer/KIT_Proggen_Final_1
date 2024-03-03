@@ -147,10 +147,10 @@ public class Memory {
      */
     private void writeToMemory(final int address, final MemoryCell content, AIPrintWrapper lastModifiedWrapper, boolean isUnmodified) {
         int sanitizedAddr = sanitizeAddress(address);
-        if (memory.containsKey(sanitizedAddr)) {
-            content.setUnmodified(isUnmodified);
+        content.setLastModifiedBy(lastModifiedWrapper, isUnmodified);
+        if (memory.containsKey(sanitizedAddr) && isUnmodified) {
+            content.setUnmodified(true);
         }
-        content.setLastModifiedBy(lastModifiedWrapper);
         memory.put(sanitizedAddr, content);
     }
     
