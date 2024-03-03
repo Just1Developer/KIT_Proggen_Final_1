@@ -236,8 +236,10 @@ public class Memory {
         final int spacing = memorySize / players.size();
         int currentPtr = 0;
         // First, assert space validity
-        for (AIPlayer player : players) {
-            if (spacing < player.getInstructions().size()) {
+        for (int i = 0; i < players.size(); i++) {
+            AIPlayer player = players.get(i);
+            // Only take spacing like this into account if it's not the last player
+            if (spacing < player.getInstructions().size() && i < players.size() - 1) {
                 System.err.println(ERROR_AI_INSTRUCTION_OUT_OF_MEM);
                 return false;
             }
