@@ -31,7 +31,7 @@ final class StartCommand implements Command {
         if (model.getTotalPlayingAICount() != commandArguments.length) {
             return new CommandResult(CommandResultType.FAILURE, UNKNOWN_AIS_OR_DUPLICATES);
         }
-        if (model.getTotalPlayingAICount() < Main.getPrintWrapperCount()) {
+        if (model.getTotalPlayingAICount() > Main.getPrintWrapperCount()) {
             return new CommandResult(CommandResultType.FAILURE, TOO_FEW_PRINTERS);
         }
         Main.playCodefight(model);
