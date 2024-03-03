@@ -77,7 +77,7 @@ final class ShowMemoryCommand implements Command {
             }
         }
         
-        int endAddress = Memory.sanitizeAddress(startAddress + DETAIL_SEGMENT_LENGTH - 1);
+        int endAddress = Memory.sanitizeAddress(startAddress + actualSegmentLength - 1);
         // Check if overtaken: Wrapped around and larger than start In that case we have mapped the entire memory
         /*
         final boolean overtaken = endAddress >= startAddress && startAddress + DETAIL_SEGMENT_LENGTH > Memory.getMemorySize();
