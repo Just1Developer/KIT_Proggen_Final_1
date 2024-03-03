@@ -20,13 +20,11 @@ public class Codefight {
      * For cases where an invalid address is needed.
      */
     private static final int INVALID_ADDRESS = -1;
-    
     private static Memory memory;
     private static final List<AIPlayer> AVAILABLE_AI_PLAYERS = new ArrayList<>();
     private final List<AIPlayer> totalIngameAIs;
     private final List<AIPlayer> playingAIs;
     private int currentAIindex;
-    private boolean skipNextAICommand;
     private final boolean setupSuccess;
     
     /**
@@ -44,7 +42,6 @@ public class Codefight {
         }
         
         currentAIindex = 0;
-        skipNextAICommand = false;
         // AI Setup
         for (int i = 0; i < playingAIs.size(); ++i) {
             AIPlayer player = playingAIs.get(i);
@@ -104,14 +101,7 @@ public class Codefight {
         if (playingAIs.isEmpty()) {
             return INVALID_ADDRESS;
         }
-        AIPlayer nextAI;
-        if (skipNextAICommand) {
-            int nextIndex = currentAIindex >= playingAIs.size() ? 0 : currentAIindex + 1;
-            nextAI = playingAIs.get(nextIndex);
-        } else {
-            nextAI = playingAIs.get(currentAIindex);
-        }
-        return nextAI.getMemoryPtr();
+        return playingAIs.get(currentAIindex).getMemoryPtr();
     }
     
     /**
@@ -148,11 +138,6 @@ public class Codefight {
      * the command will simply be skipped.
      */
     private void nextTurn() {
-        if (skipNextAICommand) {
-            skipNextAICommand = false;
-            increaseAICounter();
-            return;
-        }
         AIPlayer player = playingAIs.get(currentAIindex);
         AICommand cmd = memory.readMemory(player.getMemoryPtr()).getCommand();
         cmd.execute(this, player);
@@ -178,14 +163,6 @@ public class Codefight {
         } else {
             currentAIindex++;
         }
-    }
-    
-    /**
-     * If not already set to true, will set the indicator
-     * to true to skip the next AI command.
-     */
-    public void skipNextTurn() {
-        this.skipNextAICommand = true;
     }
     
     /**
