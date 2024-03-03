@@ -16,6 +16,9 @@ final class EndCommand implements Command {
     private static final String RUNNING_AI_BUILDER_PREFIX = "Running AIs:";
     private static final String STOPPED_AI_BUILDER_PREFIX = "Stopped AIs:";
     
+    private static final char LIST_SEPARATOR = ',';
+    private static final String LISTING_FORMAT = " %s";
+    
     /**
      * Executes the command.
      *
@@ -26,12 +29,18 @@ final class EndCommand implements Command {
     public CommandResult execute(String[] commandArguments) {
         StringBuilder runningAIs = new StringBuilder(RUNNING_AI_BUILDER_PREFIX);
         for (AIPlayer player : Main.getCodefight().getAliveAIs()) {
-            runningAIs.append(" %s".formatted(player.getAIName()));
+            if (runningAIs.length() > RUNNING_AI_BUILDER_PREFIX.length()) {
+                runningAIs.append(LIST_SEPARATOR);
+            }
+            runningAIs.append(LISTING_FORMAT.formatted(player.getAIName()));
         }
         StringBuilder stoppedAIs = new StringBuilder(STOPPED_AI_BUILDER_PREFIX);
         for (AIPlayer player : Main.getCodefight().getTotalIngameAIs()) {
             if (player.isDead()) {
-                stoppedAIs.append(" %s".formatted(player.getAIName()));
+                if (stoppedAIs.length() > STOPPED_AI_BUILDER_PREFIX.length()) {
+                    stoppedAIs.append(LIST_SEPARATOR);
+                }
+                stoppedAIs.append(LISTING_FORMAT.formatted(player.getAIName()));
             }
         }
         

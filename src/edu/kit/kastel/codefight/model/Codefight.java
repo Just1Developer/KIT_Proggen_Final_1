@@ -2,7 +2,6 @@ package edu.kit.kastel.codefight.model;
 
 import edu.kit.kastel.codefight.Main;
 import edu.kit.kastel.codefight.aicommands.AICommand;
-import edu.kit.kastel.codefight.aicommands.AICommandFactory;
 
 import java.util.ArrayList;
 import java.util.List;
