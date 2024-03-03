@@ -38,7 +38,7 @@ final class SetInitModeCommand implements Command {
         if (type == null) {
             return new CommandResult(CommandResultType.FAILURE, ERROR_INVALID_INIT_MODE);
         }
-        if (type == MemoryInitType.RANDOM_FILL && commandArguments.length == 1) {
+        if (type == MemoryInitType.INIT_MODE_RANDOM  && commandArguments.length == 1) {
             return new CommandResult(CommandResultType.FAILURE, ERROR_RANDOM_REQUIRES_SEED);
         }
         final long seed;
@@ -61,16 +61,17 @@ final class SetInitModeCommand implements Command {
     }
     
     private String getInitModeString(MemoryInitType initType, long seed) {
-        if (initType == MemoryInitType.RANDOM_FILL) {
+        if (initType == MemoryInitType.INIT_MODE_RANDOM ) {
             return "%s %d".formatted(initType, seed);
         }
         return initType.toString();
     }
     
+    // No error when unknown
     private MemoryInitType parseInitMode(String argument) {
         return switch (argument) {
-            case INIT_MODE_RANDOM -> MemoryInitType.RANDOM_FILL;
-            case INIT_MODE_STOP -> MemoryInitType.STOP_FILL;
+            case INIT_MODE_RANDOM -> MemoryInitType.INIT_MODE_RANDOM ;
+            case INIT_MODE_STOP -> MemoryInitType.INIT_MODE_STOP;
             default -> null;
         };
     }

@@ -9,9 +9,9 @@ public enum MemoryInitType {
     /**
      * The Stop Initialization type. Fills all unknowns with stop commands.
      */
-    STOP_FILL,
+    INIT_MODE_STOP,
     /**
      * The Random Initialization type. Fills all unknowns with pseudo-random commands.
      */
-    RANDOM_FILL
+    INIT_MODE_RANDOM
 }

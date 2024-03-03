@@ -89,7 +89,7 @@ public class Memory {
      */
     public static void setMemoryInitType(MemoryInitType memoryInitType, long seed) {
         Memory.memoryInitType = memoryInitType;
-        if (memoryInitType == MemoryInitType.RANDOM_FILL) {
+        if (memoryInitType == MemoryInitType.INIT_MODE_RANDOM ) {
             randomCellGenerator = new Random(seed);
             cellGenerationSeed = seed;
         }
@@ -203,7 +203,7 @@ public class Memory {
      * @return The new MemoryCell object, unassigned.
      */
     private MemoryCell generateNewMemoryContent() {
-        if (memoryInitType == MemoryInitType.STOP_FILL) {
+        if (memoryInitType == MemoryInitType.INIT_MODE_STOP) {
             return new MemoryCell();
         }
         AICommandType[] cmdTypes = AICommandType.values();

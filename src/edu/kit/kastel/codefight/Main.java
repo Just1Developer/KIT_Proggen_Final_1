@@ -223,7 +223,7 @@ public final class Main {
      * @param size The size of the memory.
      */
     private static void setupMemory(int size) {
-        Codefight.initMemory(size, MemoryInitType.STOP_FILL, 0);
+        Codefight.initMemory(size, MemoryInitType.INIT_MODE_STOP, 0);
     }
     
     /**
