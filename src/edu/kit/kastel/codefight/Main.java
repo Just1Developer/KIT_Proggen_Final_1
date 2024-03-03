@@ -9,6 +9,7 @@ import edu.kit.kastel.codefight.usercommands.CommandHandler;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -77,8 +78,9 @@ public final class Main {
      */
     public static void main(String[] args) {
         currentPhase = GamePhase.INITIALIZATION;
-        if (!parseArguments(args)) {
-            System.err.println(INVALID_ARGUMENTS_MESSAGE);
+        Optional<String> argumentResult = parseArguments(args);
+        if (argumentResult.isPresent()) {
+            System.err.println(argumentResult.get());
             return;
         }
         System.out.println(GAME_STARTED_MSG);
@@ -178,15 +180,15 @@ public final class Main {
     }
     
     /**
-     * Parses the command line arguments and returns true if the arguments were parsed successfully.
+     * Parses the command line arguments and returns the occurred error if the arguments were parsed unsuccessfully.
      * @param args The command line arguments.
-     * @return If parsing was successful.
+     * @return The error message to print. Null if there was no error.
      */
-    private static boolean parseArguments(String[] args) {
+    private static Optional<String> parseArguments(String[] args) {
         Set<String> knownCharacters = new HashSet<>();
         // Argument structure: size + 4 symbols + even arguments. Arguments must be uneven number
         if (args.length % 2 != 1 || args.length < MIN_ARGS_LENGTH) {
-            return false;
+            return Optional.of(INVALID_ARGUMENTS_MESSAGE);
         }
         
         // Setup Memory
@@ -194,18 +196,21 @@ public final class Main {
         try {
             memSize = Integer.parseInt(args[0]);
         } catch (NumberFormatException ignored) {
-            return false;
+            return Optional.of(INVALID_ARGUMENTS_MESSAGE);
         }
         if (memSize < MIN_MEMORY_SIZE || memSize > MAX_MEMORY_SIZE) {
-            return false;
+            return Optional.of(INVALID_ARGUMENTS_MESSAGE);
         }
         setupMemory(memSize);
         
         // Setup Memory Symbols
         memoryChars = new String[MEMORY_CHARS_SIZE];
         for (int i = 0; i < MEMORY_CHARS_SIZE; i++) {
-            if (isNotSingleCharacter(args[i + 1], knownCharacters)) {
-                return false;
+            if (isNotSingleCharacter(args[i + 1])) {
+                return Optional.of(INVALID_ARGUMENTS_MESSAGE);
+            }
+            if (!knownCharacters.add(args[i + 1])) {
+                return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
             memoryChars[i] = args[i + 1];
         }
@@ -213,13 +218,16 @@ public final class Main {
         // Setup Print Wrappers
         printWrappers = new ArrayList<>();
         for (int i = memoryChars.length + 1; i < args.length; i += 2) {
-            if (isNotSingleCharacter(args[i], knownCharacters) || isNotSingleCharacter(args[i + 1], knownCharacters)) {
-                return false;
+            if (isNotSingleCharacter(args[i]) || isNotSingleCharacter(args[i + 1])) {
+                return Optional.of(INVALID_ARGUMENTS_MESSAGE);
+            }
+            if (!knownCharacters.add(args[i]) || !knownCharacters.add(args[i + 1])) {
+                return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
             printWrappers.add(new AIPrintWrapper(args[i], args[i + 1]));
         }
         
-        return true;
+        return Optional.empty();
     }
     
     /**
@@ -233,13 +241,10 @@ public final class Main {
     /**
      * Checks if a command line argument is a single unicode character.
      * Supports characters that go beyond the capacity of 1 char in Unicode.
-     * <p></p>
-     * Using the set also checks if the argument is unique.
      * @param argument The command line argument
-     * @param knownCharacters The already known characters.
      * @return True if the String consists of a single character.
      */
-    private static boolean isNotSingleCharacter(String argument, Set<String> knownCharacters) {
+    private static boolean isNotSingleCharacter(String argument) {
         if (argument == null || argument.isEmpty()) {
             return true;
         }
@@ -247,13 +252,6 @@ public final class Main {
             return false;
         }
         // Some characters take up 2 spaces but form a surrogate pair. In this case, it can still be one character
-        if (!(argument.length() == 2 && Character.isSurrogatePair(argument.charAt(0), argument.charAt(1)))) {
-            return true;
-        }
-        if (!knownCharacters.add(argument)) {
-            System.err.println(ARGUMENTS_NOT_UNIQUE);
-            return true;
-        }
-        return false;
+        return argument.length() != 2 || !Character.isSurrogatePair(argument.charAt(0), argument.charAt(1));
     }
 }
