@@ -247,7 +247,7 @@ public final class Main {
             return false;
         }
         // Some characters take up 2 spaces but form a surrogate pair. In this case, it can still be one character
-        if (argument.length() == 2 && Character.isSurrogatePair(argument.charAt(0), argument.charAt(1))) {
+        if (!(argument.length() == 2 && Character.isSurrogatePair(argument.charAt(0), argument.charAt(1)))) {
             return true;
         }
         if (!knownCharacters.add(argument)) {
