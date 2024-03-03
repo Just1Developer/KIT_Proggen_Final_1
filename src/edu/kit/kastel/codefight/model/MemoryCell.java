@@ -70,14 +70,9 @@ public class MemoryCell {
      */
     public void setLastModifiedBy(AIPrintWrapper printWrapper) {
         lastModifiedPrinter = printWrapper;
-    }
-    
-    /**
-     * Gets if the cell has been unmodified since the start of the game.
-     * @return If the cell is unmodified since start.
-     */
-    boolean isUnmodified() {
-        return this.isUnmodified;
+        if (printWrapper != null) {
+            this.setUnmodified(false);
+        }
     }
     
     /**
@@ -111,7 +106,7 @@ public class MemoryCell {
      */
     public void setArgumentA(int value, AIPrintWrapper printWrapper) {
         this.argumentA = value;
-        this.lastModifiedPrinter = printWrapper;
+        setLastModifiedBy(printWrapper);
     }
     
     /**
@@ -129,7 +124,7 @@ public class MemoryCell {
      */
     public void setArgumentB(int value, AIPrintWrapper printWrapper) {
         this.argumentB = value;
-        this.lastModifiedPrinter = printWrapper;
+        setLastModifiedBy(printWrapper);
     }
     
     /**
