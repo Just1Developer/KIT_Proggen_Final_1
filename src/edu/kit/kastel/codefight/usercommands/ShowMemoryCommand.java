@@ -47,9 +47,6 @@ final class ShowMemoryCommand implements Command {
             return new CommandResult(CommandResultType.FAILURE, ADDRESS_OUT_OF_BOUNDS);
         }
         
-        // In case the memory is shorter, don't print duplicate cells
-        final int segmentLength = Math.min(Memory.getMemorySize(), DETAIL_SEGMENT_LENGTH);
-        
         StringBuilder detailBuilder = new StringBuilder();
         
         int longestAddress = 0;
@@ -58,7 +55,7 @@ final class ShowMemoryCommand implements Command {
         int longestEntryColB = 0;
         
         // Get the in total longest string representations
-        for (int ptr = 0; ptr < segmentLength; ++ptr) {
+        for (int ptr = 0; ptr < DETAIL_SEGMENT_LENGTH; ++ptr) {
             longestAddress = Math.max(longestAddress,
                     getActualStringLength(ptr + startAddress));
             longestCmdName = Math.max(longestCmdName,
@@ -69,16 +66,16 @@ final class ShowMemoryCommand implements Command {
                     getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()));
         }
         
-        for (int ptr = 0; ptr < segmentLength; ++ptr) {
+        for (int ptr = 0; ptr < DETAIL_SEGMENT_LENGTH; ++ptr) {
             int address = Codefight.getMemory().sanitizeAddress(ptr + startAddress);
             detailBuilder.append(getDetailedCellCommand(Codefight.getMemory().getSingleCharacterRepresentation(address),
                     address, longestAddress, longestCmdName, longestEntryColA, longestEntryColB));
-            if (ptr < segmentLength - 1) {
+            if (ptr < DETAIL_SEGMENT_LENGTH - 1) {
                 detailBuilder.append(System.lineSeparator());
             }
         }
         
-        int endAddress = Codefight.getMemory().sanitizeAddress(startAddress + segmentLength);
+        int endAddress = Codefight.getMemory().sanitizeAddress(startAddress + DETAIL_SEGMENT_LENGTH);
         String memory = Codefight.getMemory().toString(startAddress, endAddress);
         
         return new CommandResult(CommandResultType.SUCCESS, OUTPUT_FORMAT_DETAIL.formatted(memory, detailBuilder));
