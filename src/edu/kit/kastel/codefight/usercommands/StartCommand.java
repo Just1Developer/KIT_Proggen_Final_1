@@ -17,6 +17,7 @@ final class StartCommand implements Command {
     private static final String UNKNOWN_AIS_OR_DUPLICATES = "all AIs must be registered to Codefight.";
     private static final String TOO_FEW_PRINTERS = "not enough String representations for AIs have been defined.";
     private static final String SUCCESS_MESSAGE = "Game started.";
+    private static final int MINIMUM_AIS = 2;
     
     /**
      * Executes the command.
@@ -40,13 +41,13 @@ final class StartCommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 2;
+        return MINIMUM_AIS;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        // In theory, all AIs. So, get how many there are, and subtract the one required
-        return Codefight.getAICount() - 2;
+        // How many more could be added
+        return Main.getPrintWrapperCount() - MINIMUM_AIS;
     }
     
     @Override
