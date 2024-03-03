@@ -14,8 +14,8 @@ final class StartCommand implements Command {
     private static final String COMMAND_DESCRIPTION = "start-game: starts the game with a given list of distinct AIs."
             + "Format: start <ai1> <ai2> ...";
     
-    private static final String UNKNOWN_AIS_OR_DUPLICATES = "All AIs must be registered to Codefight and distinct.";
-    private static final String TOO_FEW_PRINTERS = "Not enough String representations for AIs have been defined.";
+    private static final String UNKNOWN_AIS_OR_DUPLICATES = "all AIs must be registered to Codefight.";
+    private static final String TOO_FEW_PRINTERS = "not enough String representations for AIs have been defined.";
     private static final String SUCCESS_MESSAGE = "Game started.";
     
     /**

@@ -38,18 +38,23 @@ final class SetInitModeCommand implements Command {
         if (type == null) {
             return new CommandResult(CommandResultType.FAILURE, ERROR_INVALID_INIT_MODE);
         }
-        if (type == MemoryInitType.INIT_MODE_RANDOM  && commandArguments.length == 1) {
+        if (type == MemoryInitType.INIT_MODE_RANDOM && commandArguments.length == 1) {
             return new CommandResult(CommandResultType.FAILURE, ERROR_RANDOM_REQUIRES_SEED);
         }
+        
         final long seed;
-        try {
-            // Can be int because of bound restrictions
-            seed = Integer.parseInt(commandArguments[1]);
-        } catch (NumberFormatException e) {
-            return new CommandResult(CommandResultType.FAILURE, ERROR_SEED_NAN);
-        }
-        if (seed < LOWER_BOUND || seed > UPPER_BOUND) {
-            return new CommandResult(CommandResultType.FAILURE, ERROR_SEED_OUT_OF_BOUNDS);
+        if (type == MemoryInitType.INIT_MODE_RANDOM) {
+            try {
+                // Can be int because of bound restrictions
+                seed = Integer.parseInt(commandArguments[1]);
+            } catch (NumberFormatException e) {
+                return new CommandResult(CommandResultType.FAILURE, ERROR_SEED_NAN);
+            }
+            if (seed < LOWER_BOUND || seed > UPPER_BOUND) {
+                return new CommandResult(CommandResultType.FAILURE, ERROR_SEED_OUT_OF_BOUNDS);
+            }
+        } else {
+            seed = 0;
         }
         
         String strOldInitMode = getInitModeString(Memory.getMemoryInitType(), Memory.getCellGenerationSeed());

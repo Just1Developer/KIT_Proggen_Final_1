@@ -2,6 +2,7 @@ package edu.kit.kastel.codefight.usercommands;
 
 import edu.kit.kastel.codefight.model.Codefight;
 import edu.kit.kastel.codefight.model.GamePhase;
+import edu.kit.kastel.codefight.model.Memory;
 import edu.kit.kastel.codefight.model.MemoryCell;
 
 /**
@@ -16,6 +17,7 @@ final class ShowMemoryCommand implements Command {
     private static final String COMMAND_DESCRIPTION = ("show-memory: Shows the entire memory and, if specified, a small section (%d cells)"
             + " in greater detail. Format: show-memory [address of begin detailed segment]").formatted(DETAIL_SEGMENT_LENGTH);
     private static final String DETAIL_ADDRESS_NAN = "The address to begin the detailed section must be a number.";
+    private static final String ADDRESS_OUT_OF_BOUNDS = "The specified address is out of bounds of the memory.";
     private static final String CELL_DETAIL_FORMAT = "%s %s: %s | %s | %s";
     private static final String OUTPUT_FORMAT_DETAIL = "%s%n%s";
     private static final char SPACE = ' ';
@@ -39,6 +41,10 @@ final class ShowMemoryCommand implements Command {
             startAddress = Integer.parseInt(commandArguments[0]);
         } catch (NumberFormatException e) {
             return new CommandResult(CommandResultType.FAILURE, DETAIL_ADDRESS_NAN);
+        }
+        
+        if (startAddress < 0 || startAddress >= Memory.getMemorySize()) {
+            return new CommandResult(CommandResultType.FAILURE, ADDRESS_OUT_OF_BOUNDS);
         }
         
         StringBuilder detailBuilder = new StringBuilder();

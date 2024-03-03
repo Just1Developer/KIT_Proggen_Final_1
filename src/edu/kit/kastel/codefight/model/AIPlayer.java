@@ -18,8 +18,9 @@ public class AIPlayer {
     private static final String STATUS_DEAD = "STOPPED";
     private static final String AI_STRING_FORMAT = "%s (%s@%d)%nNext Command: %s @%d";
     private static final String PERISH_MESSAGE = "%s executed %d steps until stopping.%n";
+    private static final String DUPLICATE_NAME_FORMAT = "%s#%d";
 
-    private final String name;
+    private String name;
     private final List<AICommand> instructions;
     private int memoryPtr;
     private int moveCounter;
@@ -50,6 +51,17 @@ public class AIPlayer {
         this.isDead = player.isDead;
         this.moveCounter = player.moveCounter;
         this.memoryPtr = player.memoryPtr;
+    }
+    
+    /**
+     * Sets the name of the AI to a duplicate format with the ID.
+     * Returns the player object itself to allow for inlining of this method.
+     * @param id The ID of the AI, so the duplicate number.
+     * @return The player object itself.
+     */
+    public AIPlayer setNameToDuplicate(int id) {
+        this.name = DUPLICATE_NAME_FORMAT.formatted(this.name, id);
+        return this;
     }
     
     /**

@@ -56,7 +56,7 @@ final class HelpCommand implements Command {
     
     @Override
     public boolean isValidInGamePhase(GamePhase gamePhase) {
-        return false;
+        return true;
     }
     
     /**

@@ -4,7 +4,9 @@ import edu.kit.kastel.codefight.Main;
 import edu.kit.kastel.codefight.aicommands.AICommand;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -33,6 +35,12 @@ public class Codefight {
     public Codefight(String... aiNames) {
         playingAIs = getAIsByName(aiNames);
         totalIngameAIs = List.copyOf(playingAIs);
+        
+        if (aiNames.length != playingAIs.size()) {
+            // One AI was not added. An error will occur anyway, rest of setup can be skipped
+            return;
+        }
+        
         currentAIindex = 0;
         skipNextAICommand = false;
         // AI Setup
@@ -241,7 +249,7 @@ public class Codefight {
     }
     
     /**
-     * Gets a collection of non-distinct AIs matching the names from the total AI players list,
+     * Gets a collection of AIs matching the names from the total AI players list,
      * so will return a subset of all players.
      * All AIs in the resulting list are clones.
      * <p></p>
@@ -251,10 +259,28 @@ public class Codefight {
      */
     private List<AIPlayer> getAIsByName(String... names) {
         final List<AIPlayer> players = new ArrayList<>();
+        final Map<String, Integer> nameOccurrences = new HashMap<>();
         
         for (String name : names) {
+            int occurrence = nameOccurrences.getOrDefault(name, 0);
             Optional<AIPlayer> player = getAIbyName(name);
-            player.ifPresent(aiPlayer -> players.add(new AIPlayer(aiPlayer)));
+            if (player.isEmpty()) {
+                continue;
+            }
+            AIPlayer newPlayer = new AIPlayer(player.get());
+            if (occurrence > 0) {
+                newPlayer.setNameToDuplicate(occurrence);
+            }
+            players.add(newPlayer);
+            nameOccurrences.put(name, occurrence + 1);
+        }
+        
+        // Now fix all first occurrences of player's names
+        for (AIPlayer player : players) {
+            int occurrence = nameOccurrences.getOrDefault(player.getAIName(), 0);
+            if (occurrence > 0) {
+                player.setNameToDuplicate(0);
+            }
         }
         return players;
     }

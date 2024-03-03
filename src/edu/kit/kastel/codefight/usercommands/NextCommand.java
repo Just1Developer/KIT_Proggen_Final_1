@@ -23,7 +23,7 @@ final class NextCommand implements Command {
     @Override
     public CommandResult execute(String[] commandArguments) {
         int steps = 1;
-        if (commandArguments != null) {
+        if (commandArguments != null && commandArguments.length > 0) {
             try {
                 steps = Integer.parseInt(commandArguments[0]);
             } catch (NumberFormatException e) {

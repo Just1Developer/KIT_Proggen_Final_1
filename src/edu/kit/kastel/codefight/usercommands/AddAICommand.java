@@ -6,6 +6,7 @@ import edu.kit.kastel.codefight.aicommands.AICommandType;
 import edu.kit.kastel.codefight.model.AIPlayer;
 import edu.kit.kastel.codefight.model.Codefight;
 import edu.kit.kastel.codefight.model.GamePhase;
+import edu.kit.kastel.codefight.model.Memory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,10 @@ final class AddAICommand implements Command {
     private static final String ERROR_NAME_TAKEN = "An AI with that name already exists";
     private static final String ERROR_INVALID_FORMAT = "The instructions are not in a valid format. Valid format is: "
             + "CMD,argA,argB,...(more instructions)";
-    private static final String ERROR_PARSE_INSTRUCTION =
+    private static final String ERROR_PARSE_INSTRUCTIONS =
             "An error occurred while parsing instructions. Unrecognized command pattern or arguments.";
+    private static final String TOO_MANY_INSTRUCTIONS =
+            "Too many instructions, in no scenario would this AI not override another player's commands and cause an error";
     
     private static final int GROUP_INDEX_COMMAND = 0;
     private static final int GROUP_INDEX_TYPE = 1;
@@ -69,8 +72,12 @@ final class AddAICommand implements Command {
         
         List<AICommand> instructions = parseInstructions(commandArguments[1]);
         if (instructions == null) {
-            return new CommandResult(CommandResultType.FAILURE, ERROR_PARSE_INSTRUCTION);
+            return new CommandResult(CommandResultType.FAILURE, ERROR_PARSE_INSTRUCTIONS);
         }
+        if (instructions.size() >= Memory.getMemorySize() / 2) {
+            return new CommandResult(CommandResultType.FAILURE, TOO_MANY_INSTRUCTIONS);
+        }
+        
         Codefight.addAI(new AIPlayer(aiName, instructions));
         
         return new CommandResult(CommandResultType.SUCCESS, aiName);

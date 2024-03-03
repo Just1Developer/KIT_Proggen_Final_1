@@ -79,14 +79,14 @@ public class CommandHandler {
         }
         
         Command command = commands.get(commandName);
-        if (command.getRequiredArgumentCount() > commandArguments.length
-            || command.getRequiredArgumentCount() + command.getOptionalArgumentCount() < commandArguments.length) {
-            System.err.println(ERROR_PREFIX + WRONG_ARGUMENTS_COUNT_FORMAT.formatted(commandName));
+        if (!command.isValidInGamePhase(Main.getCurrentPhase())) {
+            System.err.println(ERROR_PREFIX + WRONG_GAMEPHASE_FORMAT.formatted(Main.getCurrentPhase()));
             return;
         }
         
-        if (!command.isValidInGamePhase(Main.getCurrentPhase())) {
-            System.err.println(ERROR_PREFIX + WRONG_GAMEPHASE_FORMAT.formatted(Main.getCurrentPhase()));
+        if (command.getRequiredArgumentCount() > commandArguments.length
+            || command.getRequiredArgumentCount() + command.getOptionalArgumentCount() < commandArguments.length) {
+            System.err.println(ERROR_PREFIX + WRONG_ARGUMENTS_COUNT_FORMAT.formatted(commandName));
             return;
         }
         
