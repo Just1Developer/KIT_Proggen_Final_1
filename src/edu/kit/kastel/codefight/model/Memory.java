@@ -300,10 +300,10 @@ public class Memory {
             if (ptr == startAddressMarker) {
                 memoryBuilder.append(Main.getMemorySymbol(Main.INDEX_EDGE_SYMBOL));
             }
+            memoryBuilder.append(getSingleCharacterRepresentation(ptr));
             if (ptr == endAddressMarker) {
                 memoryBuilder.append(Main.getMemorySymbol(Main.INDEX_EDGE_SYMBOL));
             }
-            memoryBuilder.append(getSingleCharacterRepresentation(ptr));
         }
         return memoryBuilder.toString();
     }
