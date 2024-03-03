@@ -252,8 +252,13 @@ public class Memory {
         
         currentPtr = 0;
         for (AIPlayer player : players) {
-            player.setMemoryPtr(currentPtr);
             populateMemory(currentPtr, player.getInstructions(), player.getPrintWrapper());
+            int ptr = currentPtr;
+            // Find the first non-STOP command. There has to be one.
+            while (readMemory(ptr).getSavedCommandType() == AICommandType.STOP) {
+                ptr++;
+            }
+            player.setMemoryPtr(ptr);
             currentPtr += spacing;
         }
         return true;

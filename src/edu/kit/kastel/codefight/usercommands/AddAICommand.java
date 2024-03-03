@@ -27,8 +27,8 @@ final class AddAICommand implements Command {
     private static final String ERROR_NAME_TAKEN = "An AI with that name already exists";
     private static final String ERROR_INVALID_FORMAT = "The instructions are not in a valid format. Valid format is: "
             + "CMD,argA,argB,...(more instructions)";
-    private static final String ERROR_PARSE_INSTRUCTIONS =
-            "An error occurred while parsing instructions. Unrecognized command pattern or arguments.";
+    private static final String ERROR_PARSE_INSTRUCTIONS = "An error occurred while parsing instructions."
+                    + " Unrecognized command pattern or arguments. Is there at least one non-STOP command?";
     private static final String TOO_MANY_INSTRUCTIONS =
             "Too many instructions, in no scenario would this AI not override another player's commands and cause an error";
     
@@ -94,6 +94,7 @@ final class AddAICommand implements Command {
         Matcher matcher;
         List<AICommand> commands = new ArrayList<>();
         String remainingInstructions = instructions;
+        boolean hasFoundNonStopCommand = false;
         
         while (!remainingInstructions.isEmpty()) {
             matcher = pattern.matcher(remainingInstructions);
@@ -116,10 +117,12 @@ final class AddAICommand implements Command {
             // Remove instruction
             remainingInstructions = remainingInstructions.substring(matcher.group(GROUP_INDEX_COMMAND).length());
             
+            hasFoundNonStopCommand |= type != AICommandType.STOP;
+            
             // Create command and add it
             commands.add(AICommandFactory.createCommand(type, argA, argB));
         }
-        return commands;
+        return hasFoundNonStopCommand ? commands : null;
     }
     
     @Override
