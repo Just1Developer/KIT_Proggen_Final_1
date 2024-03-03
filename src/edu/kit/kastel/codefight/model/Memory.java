@@ -266,8 +266,10 @@ public class Memory {
     
     /**
      * Populates the entire memory with brand-new cells.
+     * Resets the cell generator.
      */
     private void populateEntireMemory() {
+        randomCellGenerator = new Random(cellGenerationSeed);
         for (int ptr = 0; ptr < memorySize; ++ptr) {
             writeToMemory(ptr, generateNewMemoryContent(), null, true);
         }
