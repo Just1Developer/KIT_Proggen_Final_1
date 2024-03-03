@@ -156,11 +156,6 @@ public class Codefight {
         }
         AIPlayer player = playingAIs.get(currentAIindex);
         AICommand cmd = memory.readMemory(player.getMemoryPtr()).getCommand();
-        // No do-while because of extra move command
-        while (player.getMoveCount() == 0 && cmd.getType() == AICommandType.STOP) {
-            player.setMemoryPtr(player.getMemoryPtr() + 1);
-            cmd = memory.readMemory(player.getMemoryPtr()).getCommand();
-        }
         cmd.execute(this, player);
         if (player.isDead()) {
             playingAIs.remove(player);
