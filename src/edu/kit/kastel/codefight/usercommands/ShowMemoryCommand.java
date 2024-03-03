@@ -60,13 +60,13 @@ final class ShowMemoryCommand implements Command {
         // Get the in total longest string representations
         for (int ptr = 0; ptr < segmentLength; ++ptr) {
             longestAddress = Math.max(longestAddress,
-                    String.valueOf(ptr + startAddress).length());
+                    getActualStringLength(ptr + startAddress));
             longestCmdName = Math.max(longestCmdName,
-                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getSavedCommandType()).length());
+                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getSavedCommandType()));
             longestEntryColA = Math.max(longestEntryColA,
-                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentA()).length());
+                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentA()));
             longestEntryColB = Math.max(longestEntryColB,
-                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()).length());
+                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()));
         }
         
         for (int ptr = 0; ptr < segmentLength; ++ptr) {
@@ -116,10 +116,21 @@ final class ShowMemoryCommand implements Command {
     private String fillFront(Object value, int targetLength) {
         String strValue = String.valueOf(value);
         StringBuilder builder = new StringBuilder(strValue);
-        for (int i = 0; i < targetLength - strValue.length(); ++i) {
+        for (int i = 0; i < targetLength - getActualStringLength(strValue); ++i) {
             builder.insert(0, SPACE);
         }
         return builder.toString();
+    }
+    
+    /**
+     * Gets the actual length of a string while accounting for surrogate pairs, meaning
+     * Unicode characters that use up two chars.
+     * @param obj The Object. Will be converted to String using valueOf.
+     * @return The actual length of the String without counting some chars as two.
+     */
+    private int getActualStringLength(Object obj) {
+        String string = String.valueOf(obj);
+        return string.codePointCount(0, string.length());
     }
     
     @Override
