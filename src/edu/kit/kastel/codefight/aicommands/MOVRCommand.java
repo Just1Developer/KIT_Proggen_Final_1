@@ -41,8 +41,8 @@ public class MOVRCommand implements AICommand {
     
     @Override
     public void execute(Codefight ignored, AIPlayer player) {
-        final int originPtr = player.getMemoryPtr() + argumentA;
-        final int destinationPtr = player.getMemoryPtr() + argumentB;
+        final int originPtr = Memory.sanitizeAddress(player.getMemoryPtr() + argumentA);
+        final int destinationPtr = Memory.sanitizeAddress(player.getMemoryPtr() + argumentB);
         Memory memory = Codefight.getMemory();
         memory.cloneMemory(originPtr, destinationPtr, player.getPrintWrapper());
         

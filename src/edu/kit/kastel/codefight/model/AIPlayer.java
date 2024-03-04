@@ -2,6 +2,7 @@ package edu.kit.kastel.codefight.model;
 
 import edu.kit.kastel.codefight.aicommands.AICommand;
 import edu.kit.kastel.codefight.aicommands.AICommandFactory;
+import edu.kit.kastel.codefight.aicommands.AICommandType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,6 +197,6 @@ public class AIPlayer {
     public String toString() {
         return isDead() ? AI_STRING_FORMAT_DEAD.formatted(getAIName(), getMoveCount())
                 : AI_STRING_FORMAT_ALIVE.formatted(getAIName(), getMoveCount(),
-                AICommandFactory.commandToString(Codefight.getMemory().readMemory(getMemoryPtr()).getCommand()), getMemoryPtr());
+                AICommandFactory.commandToString(Codefight.getMemory().readMemory(getMemoryPtr()).getCommand()), getMemoryPtr()) + " TargetA: " + Memory.sanitizeAddress(getMemoryPtr() + Codefight.getMemory().readMemory(getMemoryPtr()).getArgumentA()) + " TargetB: " + Memory.sanitizeAddress(getMemoryPtr() + Codefight.getMemory().readMemory(getMemoryPtr()).getArgumentB()) + (Codefight.getMemory().readMemory(getMemoryPtr()).getSavedCommandType() == AICommandType.CMP ? " | CMP Value B of Checkcell: " + Codefight.getMemory().readMemory(Memory.sanitizeAddress(getMemoryPtr() + Codefight.getMemory().readMemory(getMemoryPtr()).getArgumentB())).getArgumentB() : (Codefight.getMemory().readMemory(getMemoryPtr()).getSavedCommandType() == AICommandType.MOV_I ? " | MOV_I Indirect Target: " + Memory.sanitizeAddress(getMemoryPtr() + Codefight.getMemory().readMemory(getMemoryPtr() + Codefight.getMemory().readMemory(getMemoryPtr()).getArgumentB()).getArgumentB()) : ""));
     }
 }

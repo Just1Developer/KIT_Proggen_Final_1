@@ -2,6 +2,7 @@ package edu.kit.kastel.codefight.aicommands;
 
 import edu.kit.kastel.codefight.model.AIPlayer;
 import edu.kit.kastel.codefight.model.Codefight;
+import edu.kit.kastel.codefight.model.Memory;
 
 /**
  * The jump command. Teleports the player to a different address.
@@ -40,6 +41,6 @@ public class JMPCommand implements AICommand {
     
     @Override
     public void execute(Codefight ignored, AIPlayer player) {
-        player.setMemoryPtr(player.getMemoryPtr() + getFirstArgument());
+        player.setMemoryPtr(Memory.sanitizeAddress(player.getMemoryPtr() + argumentA));
     }
 }
