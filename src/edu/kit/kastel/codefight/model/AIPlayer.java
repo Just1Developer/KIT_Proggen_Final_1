@@ -116,7 +116,7 @@ public final class AIPlayer {
      * Gets the current location address of the AI in memory.
      * @return The address of the AI.
      */
-    int getMemoryPtr() {
+    public int getMemoryPtr() {
         return memoryPtr;
     }
     
