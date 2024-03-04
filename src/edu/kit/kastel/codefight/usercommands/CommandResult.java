@@ -15,7 +15,7 @@ package edu.kit.kastel.codefight.usercommands;
  *
  * @author Programmieren-Team
  */
-public class CommandResult {
+public final class CommandResult {
     
     private final String message;
     private final CommandResultType type;

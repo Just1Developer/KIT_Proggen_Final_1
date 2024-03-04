@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author uwwfh
  */
-public class AIPlayer {
+public final class AIPlayer {
     
     private static final String AI_STRING_FORMAT_DEAD = "%s (STOPPED@%d)";
     private static final String AI_STRING_FORMAT_ALIVE = "%s (RUNNING@%d)%nNext Command: %s @%d";

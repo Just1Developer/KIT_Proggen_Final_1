@@ -10,7 +10,7 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public class MOVICommand implements AICommand {
+public final class MOVICommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

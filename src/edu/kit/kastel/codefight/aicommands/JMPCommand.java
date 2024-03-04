@@ -8,7 +8,7 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public class JMPCommand implements AICommand {
+public final class JMPCommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

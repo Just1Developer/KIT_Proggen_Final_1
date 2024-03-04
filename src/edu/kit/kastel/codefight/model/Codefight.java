@@ -14,7 +14,7 @@ import java.util.Optional;
  *
  * @author uwwfh
  */
-public class Codefight {
+public final class Codefight {
     
     /**
      * For cases where an invalid address is needed.

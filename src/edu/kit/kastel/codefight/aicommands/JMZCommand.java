@@ -11,7 +11,7 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public class JMZCommand implements AICommand {
+public final class JMZCommand implements AICommand {
     
     private static final int JUMP_CONDITION_VALUE = 0;
     

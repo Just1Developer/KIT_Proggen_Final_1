@@ -11,7 +11,7 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public class SWAPCommand implements AICommand {
+public final class SWAPCommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

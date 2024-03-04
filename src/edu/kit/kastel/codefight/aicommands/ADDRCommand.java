@@ -11,7 +11,7 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public class ADDRCommand implements AICommand {
+public final class ADDRCommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

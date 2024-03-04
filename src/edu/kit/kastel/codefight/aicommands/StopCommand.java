@@ -7,7 +7,7 @@ import edu.kit.kastel.codefight.model.AIPlayer;
  *
  * @author uwwfh
  */
-public class StopCommand implements AICommand {
+public final class StopCommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

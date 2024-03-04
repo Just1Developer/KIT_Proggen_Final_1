@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * @author uwwfh
  */
-public class Memory {
+public final class Memory {
     
     private static final String INTEGER_FORMAT = "%d";
     private static final String ERROR_MAX_MEM = "%strying to allocate too much memory. Max size is %s."

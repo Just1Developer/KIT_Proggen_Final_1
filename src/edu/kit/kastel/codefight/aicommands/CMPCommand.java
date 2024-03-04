@@ -10,7 +10,7 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public class CMPCommand implements AICommand {
+public final class CMPCommand implements AICommand {
     
     final int argumentA;
     final int argumentB;

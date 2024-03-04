@@ -10,7 +10,7 @@ import edu.kit.kastel.codefight.aicommands.AICommandType;
  *
  * @author uwwfh
  */
-public class MemoryCell {
+public final class MemoryCell {
     
     private final AICommandType commandType;
     private int argumentA;

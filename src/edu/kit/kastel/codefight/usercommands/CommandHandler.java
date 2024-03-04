@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Programmieren-Team
  * @author uwwfh
  */
-public class CommandHandler {
+public final class CommandHandler {
     
     /**
      * The prefix for any error messages.
