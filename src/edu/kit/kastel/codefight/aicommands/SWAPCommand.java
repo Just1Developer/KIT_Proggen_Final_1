@@ -42,7 +42,7 @@ public class SWAPCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         Memory memory = Codefight.getMemory();
         final MemoryCell firstCell = memory.readMemory(Memory.sanitizeAddress(player.getMemoryPtr() + argumentA));
         final MemoryCell secondCell = memory.readMemory(Memory.sanitizeAddress(player.getMemoryPtr() + argumentB));

@@ -41,7 +41,7 @@ public class ADDCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         Memory memory = Codefight.getMemory();
         MemoryCell storage = memory.readMemory(player.getMemoryPtr());
         storage.setArgumentB(storage.getArgumentA() + storage.getArgumentB(), player.getPrintWrapper());

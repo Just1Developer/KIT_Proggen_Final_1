@@ -41,7 +41,7 @@ public class CMPCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight codefight, AIPlayer player) {
+    public void execute(AIPlayer player) {
         final int firstArgPtr = player.getMemoryPtr() + argumentA;
         final int secondArgPtr = player.getMemoryPtr() + argumentB;
         Memory memory = Codefight.getMemory();

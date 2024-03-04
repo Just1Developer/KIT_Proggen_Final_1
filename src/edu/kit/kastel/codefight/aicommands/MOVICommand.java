@@ -41,7 +41,7 @@ public class MOVICommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         final int originPtr = Memory.sanitizeAddress(player.getMemoryPtr() + argumentA);
         int destinationPtr = Memory.sanitizeAddress(player.getMemoryPtr() + argumentB);
         Memory memory = Codefight.getMemory();

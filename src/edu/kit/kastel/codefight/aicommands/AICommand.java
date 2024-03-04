@@ -1,7 +1,6 @@
 package edu.kit.kastel.codefight.aicommands;
 
 import edu.kit.kastel.codefight.model.AIPlayer;
-import edu.kit.kastel.codefight.model.Codefight;
 
 /**
  * A base interface for all AI commands. The contents of
@@ -32,8 +31,7 @@ public interface AICommand {
     /**
      * Executes the command.
      *
-     * @param codefight     the model to execute the command on
      * @param player        the player to perform the command on
      */
-    void execute(Codefight codefight, AIPlayer player);
+    void execute(AIPlayer player);
 }

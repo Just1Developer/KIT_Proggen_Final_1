@@ -44,7 +44,7 @@ public class JMZCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         Memory memory = Codefight.getMemory();
         MemoryCell checkCell = memory.readMemory(Memory.sanitizeAddress(player.getMemoryPtr() + argumentB));
         if (checkCell.getArgumentB() == JUMP_CONDITION_VALUE) {

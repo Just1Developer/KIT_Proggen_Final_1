@@ -140,7 +140,7 @@ public class Codefight {
     private void nextTurn() {
         AIPlayer player = playingAIs.get(currentAIindex);
         AICommand cmd = memory.readMemory(player.getMemoryPtr()).getCommand();
-        cmd.execute(this, player);
+        cmd.execute(player);
         if (player.isDead()) {
             playingAIs.remove(player);
             // Check for overflow

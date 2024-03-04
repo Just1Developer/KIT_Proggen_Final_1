@@ -1,7 +1,6 @@
 package edu.kit.kastel.codefight.aicommands;
 
 import edu.kit.kastel.codefight.model.AIPlayer;
-import edu.kit.kastel.codefight.model.Codefight;
 
 /**
  * The stop command. Kills the AI that executes it.
@@ -39,7 +38,7 @@ public class StopCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         player.kill();
     }
 }

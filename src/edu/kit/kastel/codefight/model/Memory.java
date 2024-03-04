@@ -4,7 +4,6 @@ import edu.kit.kastel.codefight.Main;
 import edu.kit.kastel.codefight.aicommands.AICommand;
 import edu.kit.kastel.codefight.aicommands.AICommandType;
 import edu.kit.kastel.codefight.model.diagnostic.InvalidPointerException;
-import edu.kit.kastel.codefight.model.diagnostic.OutOfMemoryException;
 import edu.kit.kastel.codefight.usercommands.CommandHandler;
 
 import java.util.HashMap;
@@ -224,7 +223,6 @@ public class Memory {
      * Also resets the cell generation Random object.
      * Returns true if the reset failed.
      *
-     * @throws OutOfMemoryException If the AIs try to override already populated memory at setup.
      * @param players The players that will be playing this round.
      * @return If the reset was successful.
      */

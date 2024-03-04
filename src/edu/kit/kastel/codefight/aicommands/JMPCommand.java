@@ -1,7 +1,6 @@
 package edu.kit.kastel.codefight.aicommands;
 
 import edu.kit.kastel.codefight.model.AIPlayer;
-import edu.kit.kastel.codefight.model.Codefight;
 import edu.kit.kastel.codefight.model.Memory;
 
 /**
@@ -40,7 +39,7 @@ public class JMPCommand implements AICommand {
     }
     
     @Override
-    public void execute(Codefight ignored, AIPlayer player) {
+    public void execute(AIPlayer player) {
         player.setMemoryPtr(Memory.sanitizeAddress(player.getMemoryPtr() + argumentA));
     }
 }
