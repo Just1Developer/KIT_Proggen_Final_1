@@ -84,8 +84,8 @@ public final class Main {
             return;
         }
         System.out.println(GAME_STARTED_MSG);
-        CommandHandler commandHandler = new CommandHandler();
-        commandHandler.handleUserInput();
+        CommandHandler.initialize();
+        CommandHandler.handleUserInput();
     }
     
     /**

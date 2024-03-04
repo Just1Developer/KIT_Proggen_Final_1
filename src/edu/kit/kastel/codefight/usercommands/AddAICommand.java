@@ -159,11 +159,8 @@ final class AddAICommand implements Command {
         return gamePhase == GamePhase.INITIALIZATION;
     }
     
-    /**
-     * Gets the command description for this command.
-     * @return The description of the command.
-     */
-    public static String getCommandDescription() {
+    @Override
+    public String getCommandDescription() {
         return COMMAND_DESCRIPTION;
     }
 }

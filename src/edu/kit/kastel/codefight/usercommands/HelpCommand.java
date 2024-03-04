@@ -3,6 +3,8 @@ package edu.kit.kastel.codefight.usercommands;
 import edu.kit.kastel.codefight.Main;
 import edu.kit.kastel.codefight.model.GamePhase;
 
+import java.util.List;
+
 /**
  * This command displays help for the current GamePhase.
  *
@@ -12,23 +14,6 @@ final class HelpCommand implements Command {
     
     private static final String COMMAND_DESCRIPTION = "help: Displays all in this phase available commands.";
     
-    private static final String[] HELP_INITIALIZATION = {
-            AddAICommand.getCommandDescription(),
-            HelpCommand.getCommandDescription(),
-            QuitCommand.getCommandDescription(),
-            RemoveAICommand.getCommandDescription(),
-            SetInitModeCommand.getCommandDescription(),
-            StartCommand.getCommandDescription(),
-    };
-    private static final String[] HELP_INGAME = {
-            EndCommand.getCommandDescription(),
-            HelpCommand.getCommandDescription(),
-            NextCommand.getCommandDescription(),
-            QuitCommand.getCommandDescription(),
-            ShowAICommand.getCommandDescription(),
-            ShowMemoryCommand.getCommandDescription(),
-    };
-    
     /**
      * Executes the command.
      *
@@ -37,8 +22,8 @@ final class HelpCommand implements Command {
      */
     @Override
     public CommandResult execute(String[] commandArguments) {
-        String[] allHelp = Main.getCurrentPhase() == GamePhase.INITIALIZATION ? HELP_INITIALIZATION : HELP_INGAME;
-        for (String help : allHelp) {
+        List<String> commandDescriptions = CommandHandler.getCommandDescriptionsAlphabetically(Main.getCurrentPhase());
+        for (String help : commandDescriptions) {
             System.out.println(help);
         }
         return new CommandResult(CommandResultType.SUCCESS, null);
@@ -59,11 +44,8 @@ final class HelpCommand implements Command {
         return true;
     }
     
-    /**
-     * Gets the command description for this command.
-     * @return The description of the command.
-     */
-    public static String getCommandDescription() {
+    @Override
+    public String getCommandDescription() {
         return COMMAND_DESCRIPTION;
     }
 }

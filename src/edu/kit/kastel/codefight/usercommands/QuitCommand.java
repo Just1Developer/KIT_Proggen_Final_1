@@ -15,16 +15,6 @@ import edu.kit.kastel.codefight.model.GamePhase;
 final class QuitCommand implements Command {
     
     private static final String COMMAND_DESCRIPTION = "quit: Quits the application immediately.";
-    private final CommandHandler commandHandler;
-
-    /**
-     * Constructs a new QuitCommand.
-     *
-     * @param commandHandler the command handler to quit
-     */
-    QuitCommand(CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
-    }
     
     /**
      * Executes the command.
@@ -34,7 +24,7 @@ final class QuitCommand implements Command {
      */
     @Override
     public CommandResult execute(String[] ignored) {
-        commandHandler.quit();
+        CommandHandler.quit();
         return new CommandResult(CommandResultType.SUCCESS, null);
     }
     
@@ -53,11 +43,8 @@ final class QuitCommand implements Command {
         return true;
     }
     
-    /**
-     * Gets the command description for this command.
-     * @return The description of the command.
-     */
-    public static String getCommandDescription() {
+    @Override
+    public String getCommandDescription() {
         return COMMAND_DESCRIPTION;
     }
 }

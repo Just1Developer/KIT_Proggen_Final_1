@@ -42,4 +42,10 @@ public interface Command {
      * @return True if the command is valid in the specified Gamephase.
      */
     boolean isValidInGamePhase(GamePhase gamePhase);
+    
+    /**
+     * Gets the command description for this command.
+     * @return The description of the command.
+     */
+    String getCommandDescription();
 }
