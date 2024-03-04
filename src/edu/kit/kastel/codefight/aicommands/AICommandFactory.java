@@ -1,7 +1,5 @@
 package edu.kit.kastel.codefight.aicommands;
 
-import edu.kit.kastel.codefight.model.Memory;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +50,7 @@ public final class AICommandFactory {
      * @return Command as String.
      */
     public static String commandToString(AICommand command) {
-        return COMMAND_STRING_FORMAT.formatted(command.getType(), Memory.sanitizeAddress(command.getFirstArgument()), Memory.sanitizeAddress(command.getSecondArgument()));
+        return COMMAND_STRING_FORMAT.formatted(command.getType(), command.getFirstArgument(), command.getSecondArgument());
     }
     
     private interface AICommandFactoryMethod {
