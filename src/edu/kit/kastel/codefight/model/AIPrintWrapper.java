@@ -23,8 +23,7 @@ public record AIPrintWrapper(String defaultSymbol, String bombSymbol) {
      * @param defaultSymbol The default symbol.
      * @param bombSymbol    The bomb symbol.
      */
-    public AIPrintWrapper {
-    }
+    public AIPrintWrapper { }
     
     /**
      * Gets the default symbol used for the AI.

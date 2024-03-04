@@ -60,7 +60,7 @@ public final class MemoryCell {
      * Gets the printWrapper of the AI that last modified the Cell.
      * @return The cell's printWrapper.
      */
-    public AIPrintWrapper getPrintWrapper() {
+    AIPrintWrapper getPrintWrapper() {
         return lastModifiedPrinter;
     }
     
@@ -69,7 +69,7 @@ public final class MemoryCell {
      * If the printWrapper is not null, the cell will be marked as modified.
      * @param printWrapper The printWrapper of the AI that modified the cell.
      */
-    void setLastModifiedBy(AIPrintWrapper printWrapper) {
+    private void setLastModifiedBy(AIPrintWrapper printWrapper) {
         setLastModifiedBy(printWrapper, true);
     }
     
@@ -90,7 +90,7 @@ public final class MemoryCell {
      * Sets the unmodified parameter of the cell to true or false.
      * @param unmodified If the cell is unmodified.
      */
-    void setUnmodified(boolean unmodified) {
+    private void setUnmodified(boolean unmodified) {
         this.isUnmodified = unmodified;
     }
     
@@ -142,7 +142,7 @@ public final class MemoryCell {
      * Constructs a new command with the data from the memory cell.
      * @return A new AI command from the cell.
      */
-    public AICommand getCommand() {
+    AICommand getCommand() {
         return AICommandFactory.createCommand(getSavedCommandType(), getArgumentA(), getArgumentB());
     }
     
@@ -154,7 +154,7 @@ public final class MemoryCell {
      * 3. Command is JMZ command with both entries 0
      * @return If the command is a bomb.
      */
-    public boolean isBomb() {
+    boolean isBomb() {
         if (isUnmodified) {
             return false;
         }
@@ -168,7 +168,7 @@ public final class MemoryCell {
      * Copied values: Command details, lastModifiedBy, isUnmodified.
      * @return A copy of the cell.
      */
-    public MemoryCell copy() {
+    MemoryCell copy() {
         MemoryCell memorycell = new MemoryCell(this.commandType, this.argumentA, this.argumentB);
         memorycell.setLastModifiedBy(getPrintWrapper());
         memorycell.setUnmodified(isUnmodified);

@@ -97,7 +97,7 @@ public final class Codefight {
      * Does take the skip into account.
      * @return Next AI Memory Address.
      */
-    public int getNextAIAddress() {
+    int getNextAIAddress() {
         if (playingAIs.isEmpty()) {
             return INVALID_ADDRESS;
         }
@@ -224,7 +224,7 @@ public final class Codefight {
      * @param aiName The name of the AI.
      * @return Optional AI player with the given name.
      */
-    public static Optional<AIPlayer> getAIbyName(String aiName) {
+    private static Optional<AIPlayer> getAIbyName(String aiName) {
         for (AIPlayer player : AVAILABLE_AI_PLAYERS) {
             if (player.getAIName().equals(aiName)) {
                 return Optional.of(player);

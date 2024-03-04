@@ -63,7 +63,7 @@ public final class CommandHandler {
     /**
      * Quits the interaction with the user.
      */
-    public void quit() {
+    void quit() {
         this.running = false;
     }
     

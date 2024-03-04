@@ -13,8 +13,8 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  */
 public final class SWAPCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new swap command.

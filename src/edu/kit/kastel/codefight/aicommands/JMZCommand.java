@@ -15,8 +15,8 @@ public final class JMZCommand implements AICommand {
     
     private static final int JUMP_CONDITION_VALUE = 0;
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new jump command.

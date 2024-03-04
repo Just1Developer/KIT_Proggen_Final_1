@@ -57,7 +57,7 @@ public final class AIPlayer {
      *
      * @param id The ID of the AI, so the duplicate number.
      */
-    public void setNameToDuplicate(int id) {
+    void setNameToDuplicate(int id) {
         this.name = DUPLICATE_NAME_FORMAT.formatted(this.name, id);
     }
     
@@ -73,14 +73,14 @@ public final class AIPlayer {
      * Sets the PrintWrapper for this AI. Used in show-memory command.
      * @param printWrapper The new PrintWrapper.
      */
-    public void setPrintWrapper(AIPrintWrapper printWrapper) {
+    void setPrintWrapper(AIPrintWrapper printWrapper) {
         this.printWrapper = printWrapper;
     }
     
     /**
      * Resets the player's move counter and alive status.
      */
-    public void reset() {
+    void reset() {
         moveCounter = 0;
         memoryPtr = 0;
         isDead = false;
@@ -116,7 +116,7 @@ public final class AIPlayer {
      * Gets the current location address of the AI in memory.
      * @return The address of the AI.
      */
-    public int getMemoryPtr() {
+    int getMemoryPtr() {
         return memoryPtr;
     }
     
@@ -140,7 +140,7 @@ public final class AIPlayer {
      * Gets the amount of moves the AI has played in its current game.
      * @return The amount of moves so far.
      */
-    public int getMoveCount() {
+    int getMoveCount() {
         return moveCounter;
     }
     
@@ -148,7 +148,7 @@ public final class AIPlayer {
      * Increases the number of moves the AI as made by 1.
      * Will do nothing if the AI is dead.
      */
-    public void increaseMoveCount() {
+    void increaseMoveCount() {
         this.moveCounter++;
     }
     
@@ -156,7 +156,7 @@ public final class AIPlayer {
      * Gets a copy of the instructions of this AI.
      * @return A copy of the commands.
      */
-    public List<AICommand> getInstructions() {
+    List<AICommand> getInstructions() {
         List<AICommand> copy = new ArrayList<>();
         for (AICommand cmd : instructions) {
             copy.add(AICommandFactory.createCommand(cmd.getType(), cmd.getFirstArgument(), cmd.getSecondArgument()));

@@ -9,8 +9,8 @@ import edu.kit.kastel.codefight.model.AIPlayer;
  */
 public final class StopCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new Stop command.

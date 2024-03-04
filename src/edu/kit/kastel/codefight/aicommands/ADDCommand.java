@@ -12,8 +12,8 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  */
 public final class ADDCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new add command.

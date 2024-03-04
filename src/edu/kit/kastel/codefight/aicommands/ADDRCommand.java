@@ -13,8 +13,8 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  */
 public final class ADDRCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new relative add command.

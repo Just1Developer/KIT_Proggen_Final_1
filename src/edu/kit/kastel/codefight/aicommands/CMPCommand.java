@@ -12,8 +12,8 @@ import edu.kit.kastel.codefight.model.Memory;
  */
 public final class CMPCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new compare command.

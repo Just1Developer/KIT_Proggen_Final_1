@@ -11,8 +11,8 @@ import edu.kit.kastel.codefight.model.Memory;
  */
 public final class MOVRCommand implements AICommand {
     
-    final int argumentA;
-    final int argumentB;
+    private final int argumentA;
+    private final int argumentB;
     
     /**
      * Constructs a new relative move command.

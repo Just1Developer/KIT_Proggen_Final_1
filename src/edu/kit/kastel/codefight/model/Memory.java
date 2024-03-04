@@ -52,7 +52,7 @@ public final class Memory {
      * @param memoryInitType The initialization type of unpopulated memory cells.
      * @param seed The seed for the random generator. If init type is STOP_FILL, parameter will be ignored.
      */
-    public static void initMemory(int memorySize, MemoryInitType memoryInitType, long seed) {
+    static void initMemory(int memorySize, MemoryInitType memoryInitType, long seed) {
         if (memorySize > Main.MAX_MEMORY_SIZE) {
             throw new IllegalArgumentException(ERROR_MAX_MEM.formatted(Main.MAX_MEMORY_SIZE));
         }
@@ -128,7 +128,7 @@ public final class Memory {
      * @param content The content to write.
      * @param lastModifiedWrapper The last modified property of the cell. Null represents 'unmodified'.
      */
-    public void writeToMemory(final int address, final MemoryCell content, AIPrintWrapper lastModifiedWrapper) {
+    private void writeToMemory(final int address, final MemoryCell content, AIPrintWrapper lastModifiedWrapper) {
         writeToMemory(address, content, lastModifiedWrapper, false);
     }
     
