@@ -56,7 +56,8 @@ final class ShowMemoryCommand implements Command {
         int longestEntryColA = 0;
         int longestEntryColB = 0;
         
-        // Get the in total longest string representations
+        // Get the in total longest string representations for width of columns.
+        // Does not take the symbol (left most) column into account.
         for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
             longestAddress = Math.max(longestAddress,
                     getActualStringLength(Memory.sanitizeAddress(ptr + startAddress)));

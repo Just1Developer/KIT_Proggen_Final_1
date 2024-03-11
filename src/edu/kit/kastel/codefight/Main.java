@@ -57,12 +57,16 @@ public final class Main {
     private static final int MEMORY_CHARS_SIZE = 4;
     
     private static final String INVALID_ARGUMENTS_MESSAGE = "%sinvalid command line arguments.".formatted(CommandHandler.ERROR_PREFIX);
-    private static final String ARGUMENTS_NOT_UNIQUE = "%sAll character arguments must be unique!".formatted(CommandHandler.ERROR_PREFIX);
+    private static final String ARGUMENTS_NOT_UNIQUE = "%sall character arguments must be unique!".formatted(CommandHandler.ERROR_PREFIX);
     private static final String INVALID_PHASE_START = "%stried to initialize a game while ingame.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String INVALID_PHASE_END = "%stried to end the game while not ingame.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String INVALID_PHASE_INGAME = "%stried to play while not ingame.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String GAME_STARTED_MSG = "Welcome to CodeFight 2024. Enter 'help' for more details.";
-    private static final String SPACE = " ";
+    
+    /**
+     * The single character that is invalid for symbols and must not appear in the symbols.
+     */
+    private static final String INVALID_SYMBOL_CHAR = " ";
     
     private static GamePhase currentPhase;
     private static Codefight currentGame;
@@ -192,7 +196,7 @@ public final class Main {
             return Optional.of(INVALID_ARGUMENTS_MESSAGE);
         }
         
-        // Setup Memory
+        // Set up Memory
         int memSize;
         try {
             memSize = Integer.parseInt(args[0]);
@@ -204,7 +208,7 @@ public final class Main {
         }
         setupMemory(memSize);
         
-        // Setup Memory Symbols
+        // Set up Memory Symbols
         memoryChars = new String[MEMORY_CHARS_SIZE];
         for (int i = 0; i < MEMORY_CHARS_SIZE; i++) {
             if (isNotSingleCharacter(args[i + 1])) {
@@ -246,6 +250,6 @@ public final class Main {
      * @return True if the String does not consist of a valid symbol.
      */
     private static boolean isNotSingleCharacter(String argument) {
-        return argument.contains(SPACE);
+        return argument.contains(INVALID_SYMBOL_CHAR);
     }
 }
