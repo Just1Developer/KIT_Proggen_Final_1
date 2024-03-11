@@ -62,6 +62,7 @@ public final class Main {
     private static final String INVALID_PHASE_END = "%stried to end the game while not ingame.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String INVALID_PHASE_INGAME = "%stried to play while not ingame.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String GAME_STARTED_MSG = "Welcome to CodeFight 2024. Enter 'help' for more details.";
+    private static final String SPACE = " ";
     
     private static GamePhase currentPhase;
     private static Codefight currentGame;
@@ -239,19 +240,12 @@ public final class Main {
     }
     
     /**
-     * Checks if a command line argument is a single unicode character.
-     * Supports characters that go beyond the capacity of 1 char in Unicode.
+     * Checks if a command line argument is not a single symbol, so no spaces.
+     * Returns inverted value, false for valid symbol and true for invalid.
      * @param argument The command line argument
-     * @return True if the String consists of a single character.
+     * @return True if the String does not consist of a valid symbol.
      */
     private static boolean isNotSingleCharacter(String argument) {
-        if (argument == null || argument.isEmpty()) {
-            return true;
-        }
-        if (argument.length() == 1) {
-            return false;
-        }
-        // Some characters take up 2 spaces but form a surrogate pair. In this case, it can still be one character
-        return argument.length() != 2 || !Character.isSurrogatePair(argument.charAt(0), argument.charAt(1));
+        return argument.contains(SPACE);
     }
 }
