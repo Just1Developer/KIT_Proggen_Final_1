@@ -11,17 +11,17 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public final class SWAPCommand implements AICommand {
+final class SWAPCommand implements AICommand {
     
     private final int argumentA;
     private final int argumentB;
     
     /**
-     * Constructs a new swap command.
+     * Constructs a new swap command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public SWAPCommand(int argA, int argB) {
+    SWAPCommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

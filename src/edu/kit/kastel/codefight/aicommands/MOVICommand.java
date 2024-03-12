@@ -10,17 +10,17 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public final class MOVICommand implements AICommand {
+final class MOVICommand implements AICommand {
     
     private final int argumentA;
     private final int argumentB;
     
     /**
-     * Constructs a new intermediate move command.
+     * Constructs a new intermediate move command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public MOVICommand(int argA, int argB) {
+    MOVICommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

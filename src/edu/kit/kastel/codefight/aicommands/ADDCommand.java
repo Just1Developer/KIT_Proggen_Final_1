@@ -10,17 +10,17 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public final class ADDCommand implements AICommand {
+final class ADDCommand implements AICommand {
     
     private final int argumentA;
     private final int argumentB;
     
     /**
-     * Constructs a new add command.
+     * Constructs a new add command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public ADDCommand(int argA, int argB) {
+    ADDCommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

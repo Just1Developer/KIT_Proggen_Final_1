@@ -211,9 +211,11 @@ public final class Main {
         // Set up Memory Symbols
         memoryChars = new String[MEMORY_CHARS_SIZE];
         for (int i = 0; i < MEMORY_CHARS_SIZE; i++) {
-            if (isNotSingleCharacter(args[i + 1])) {
+            // Check validity
+            if (args[i + 1].contains(INVALID_SYMBOL_CHAR)) {
                 return Optional.of(INVALID_ARGUMENTS_MESSAGE);
             }
+            // Check uniqueness
             if (!knownCharacters.add(args[i + 1])) {
                 return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
@@ -223,9 +225,11 @@ public final class Main {
         // Setup Print Wrappers
         printWrappers = new ArrayList<>();
         for (int i = memoryChars.length + 1; i < args.length; i += 2) {
-            if (isNotSingleCharacter(args[i]) || isNotSingleCharacter(args[i + 1])) {
+            // Check validity
+            if (args[i].contains(INVALID_SYMBOL_CHAR) || args[i + 1].contains(INVALID_SYMBOL_CHAR)) {
                 return Optional.of(INVALID_ARGUMENTS_MESSAGE);
             }
+            // Check uniqueness
             if (!knownCharacters.add(args[i]) || !knownCharacters.add(args[i + 1])) {
                 return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
@@ -241,15 +245,5 @@ public final class Main {
      */
     private static void setupMemory(int size) {
         Codefight.initMemory(size, MemoryInitType.INIT_MODE_STOP, 0);
-    }
-    
-    /**
-     * Checks if a command line argument is not a single symbol, so no spaces.
-     * Returns inverted value, false for valid symbol and true for invalid.
-     * @param argument The command line argument
-     * @return True if the String does not consist of a valid symbol.
-     */
-    private static boolean isNotSingleCharacter(String argument) {
-        return argument.contains(INVALID_SYMBOL_CHAR);
     }
 }

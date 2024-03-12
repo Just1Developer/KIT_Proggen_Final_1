@@ -15,7 +15,7 @@ public final class AICommandFactory {
     private static final Map<AICommandType, AICommandFactoryMethod> COMMAND_MAP = new HashMap<>();
     
     static {
-        COMMAND_MAP.put(AICommandType.STOP, StopCommand::new);
+        COMMAND_MAP.put(AICommandType.STOP, STOPCommand::new);
         COMMAND_MAP.put(AICommandType.MOV_R, MOVRCommand::new);
         COMMAND_MAP.put(AICommandType.MOV_I, MOVICommand::new);
         COMMAND_MAP.put(AICommandType.ADD, ADDCommand::new);
@@ -30,7 +30,7 @@ public final class AICommandFactory {
     
     /**
      * Creates a command from it's enum type and arguments.
-     * If, for some reason, no valid constructor is found, a normal STOP command will be returned instead.
+     * If, for some reason, no valid constructor is found, a default STOP command will be returned instead.
      * @param commandType The command type
      * @param argA The first argument of the command.
      * @param argB The second argument of the command.
@@ -39,7 +39,7 @@ public final class AICommandFactory {
     public static AICommand createCommand(AICommandType commandType, int argA, int argB) {
         AICommandFactoryMethod factoryMethod = COMMAND_MAP.get(commandType);
         if (factoryMethod == null) {
-            return new StopCommand(0, 0);
+            return new STOPCommand();
         }
         return factoryMethod.create(argA, argB);
     }

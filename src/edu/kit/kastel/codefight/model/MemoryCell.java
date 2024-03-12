@@ -12,6 +12,8 @@ import edu.kit.kastel.codefight.aicommands.AICommandType;
  */
 public final class MemoryCell {
     
+    private static final int DEFAULT_ARG_VALUE = 0;
+    
     private final AICommandType commandType;
     private int argumentA;
     private int argumentB;
@@ -22,10 +24,10 @@ public final class MemoryCell {
      * Creates a new and empty AI command.
      * The Command Type will be STOP, all arguments are 0.
      */
-    public MemoryCell() {
+    MemoryCell() {
         this.commandType = AICommandType.STOP;
-        this.argumentA = 0;
-        this.argumentB = 0;
+        this.argumentA = DEFAULT_ARG_VALUE;
+        this.argumentB = DEFAULT_ARG_VALUE;
         this.lastModifiedPrinter = null;
         isUnmodified = true;
     }
@@ -36,7 +38,7 @@ public final class MemoryCell {
      * @param argA The first argument
      * @param argB The second argument
      */
-    public MemoryCell(AICommandType commandType, int argA, int argB) {
+    MemoryCell(AICommandType commandType, int argA, int argB) {
         this.commandType = commandType;
         this.argumentA = argA;
         this.argumentB = argB;
@@ -48,7 +50,7 @@ public final class MemoryCell {
      * Creates a new memory cell from a given AI command.
      * @param command The command to copy the values from.
      */
-    public MemoryCell(AICommand command) {
+    MemoryCell(AICommand command) {
         this.commandType = command.getType();
         this.argumentA = command.getFirstArgument();
         this.argumentB = command.getSecondArgument();

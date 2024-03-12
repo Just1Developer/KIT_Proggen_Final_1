@@ -11,7 +11,7 @@ import edu.kit.kastel.codefight.model.MemoryCell;
  *
  * @author uwwfh
  */
-public final class JMZCommand implements AICommand {
+final class JMZCommand implements AICommand {
     
     private static final int JUMP_CONDITION_VALUE = 0;
     
@@ -19,11 +19,11 @@ public final class JMZCommand implements AICommand {
     private final int argumentB;
     
     /**
-     * Constructs a new jump command.
+     * Constructs a new jump command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public JMZCommand(int argA, int argB) {
+    JMZCommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

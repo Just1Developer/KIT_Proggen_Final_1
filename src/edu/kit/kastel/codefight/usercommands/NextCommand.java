@@ -10,6 +10,9 @@ import edu.kit.kastel.codefight.model.GamePhase;
  */
 final class NextCommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 0;
+    private static final int ARGUMENTS_OPTIONAL = 1;
+    
     private static final String COMMAND_DESCRIPTION = "next: Makes a given number of moves in the current codefight game."
             + "Format: next <steps>";
     private static final String STEPS_NOT_VALID_INT = "The steps must be specified as a non-negative integer.";
@@ -39,12 +42,12 @@ final class NextCommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 0;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 1;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override

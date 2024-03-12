@@ -16,6 +16,10 @@ import java.util.Optional;
  */
 public final class Codefight {
     
+    private static final int START_INDEX = 0;
+    private static final int FIRST_OCCURRENCE_ID = 0;
+    private static final int SINGLE_OCCURRENCE = 1;
+    
     /**
      * For cases where an invalid address is needed.
      */
@@ -41,7 +45,7 @@ public final class Codefight {
             return;
         }
         
-        currentAIindex = 0;
+        currentAIindex = START_INDEX;
         // AI Setup
         for (int i = 0; i < playingAIs.size(); ++i) {
             AIPlayer player = playingAIs.get(i);
@@ -145,7 +149,7 @@ public final class Codefight {
             playingAIs.remove(player);
             // Check for overflow
             if (currentAIindex >= playingAIs.size()) {
-                currentAIindex = 0;
+                currentAIindex = START_INDEX;
             }
         } else {
             // Account for list shrinking because of removal
@@ -159,7 +163,7 @@ public final class Codefight {
      */
     private void increaseAICounter() {
         if (currentAIindex >= playingAIs.size() - 1) {
-            currentAIindex = 0;
+            currentAIindex = START_INDEX;
         } else {
             currentAIindex++;
         }
@@ -247,24 +251,24 @@ public final class Codefight {
         final Map<String, Integer> nameOccurrences = new HashMap<>();
         
         for (String name : names) {
-            int occurrence = nameOccurrences.getOrDefault(name, 0);
+            int occurrence = nameOccurrences.getOrDefault(name, FIRST_OCCURRENCE_ID);
             Optional<AIPlayer> player = getAIbyName(name);
             if (player.isEmpty()) {
                 continue;
             }
             AIPlayer newPlayer = new AIPlayer(player.get());
-            if (occurrence > 0) {
+            if (occurrence > FIRST_OCCURRENCE_ID) {
                 newPlayer.setNameToDuplicate(occurrence);
             }
             players.add(newPlayer);
-            nameOccurrences.put(name, occurrence + 1);
+            nameOccurrences.put(name, occurrence + SINGLE_OCCURRENCE);
         }
         
-        // Now fix all first occurrences of player's names
+        // Now fix all first occurrences of player's names and add 0
         for (AIPlayer player : players) {
-            int occurrence = nameOccurrences.getOrDefault(player.getAIName(), 0);
-            if (occurrence > 1) {
-                player.setNameToDuplicate(0);
+            int occurrence = nameOccurrences.getOrDefault(player.getAIName(), FIRST_OCCURRENCE_ID);
+            if (occurrence > SINGLE_OCCURRENCE) {
+                player.setNameToDuplicate(FIRST_OCCURRENCE_ID);
             }
         }
         return players;

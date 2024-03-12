@@ -13,6 +13,9 @@ import java.util.Optional;
  */
 final class ShowAICommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 1;
+    private static final int ARGUMENTS_OPTIONAL = 0;
+    
     private static final String COMMAND_DESCRIPTION = "show-ai: Shows the current state of an AI. Format: show-ai <name>";
     private static final String ERROR_UNKNOWN_NAME = "Could not find AI with name %s.";
     
@@ -31,12 +34,12 @@ final class ShowAICommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 1;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 0;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override

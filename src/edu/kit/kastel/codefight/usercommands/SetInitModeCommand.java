@@ -11,6 +11,8 @@ import edu.kit.kastel.codefight.model.MemoryInitType;
  */
 final class SetInitModeCommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 1;
+    private static final int ARGUMENTS_OPTIONAL = 1;
     
     private static final String COMMAND_DESCRIPTION =
             "set-init-mode: Sets the init mode that determines how remaining memory addresses are filled at the start of the game.";
@@ -94,12 +96,12 @@ final class SetInitModeCommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 1;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 1;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override

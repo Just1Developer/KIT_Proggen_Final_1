@@ -27,18 +27,6 @@ public final class AIPlayer {
     private AIPrintWrapper printWrapper;
     
     /**
-     * Constructs a new AI Player with the specified name and instructions.
-     * @param name The AI name.
-     * @param commands The starting instructions
-     */
-    public AIPlayer(String name, List<AICommand> commands) {
-        this.name = name;
-        this.instructions = commands;
-        this.printWrapper = null;
-        reset();
-    }
-    
-    /**
      * Constructs a new AI Player from a given Player, essentially creating a clone.
      * Clones the list of instructions by value.
      * @param player The player to clone.

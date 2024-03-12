@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
  */
 final class AddAICommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 2;
+    private static final int ARGUMENTS_OPTIONAL = 0;
+    
     private static final String COMMAND_DESCRIPTION =
             "add-ai: Adds a new AI to the game. Format: add-ai <name> <commands: CMD,argA,argB,...>.";
     
@@ -146,12 +149,12 @@ final class AddAICommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 2;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 0;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override

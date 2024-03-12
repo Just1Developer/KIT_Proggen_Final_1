@@ -30,6 +30,8 @@ public final class Memory {
     private static final String ERROR_INVALID_POINTER = "%sinvalid Memory Address: %s"
             .formatted(CommandHandler.ERROR_PREFIX, INTEGER_FORMAT);
     
+    private static final int BEGIN_ADDRESS_PTR = 0;
+    
     private static Random randomCellGenerator;
     private static long cellGenerationSeed;
     private static MemoryInitType memoryInitType;
@@ -229,7 +231,7 @@ public final class Memory {
     boolean reset(List<AIPlayer> players) {
         populateEntireMemory();
         final double spacing = (double) memorySize / players.size();
-        double currentPtr = 0;
+        double currentPtr = BEGIN_ADDRESS_PTR;
         // First, assert space validity
         for (int i = 0; i < players.size(); i++) {
             AIPlayer player = players.get(i);
@@ -245,7 +247,7 @@ public final class Memory {
             currentPtr += spacing;
         }
         
-        currentPtr = 0;
+        currentPtr = BEGIN_ADDRESS_PTR;
         for (AIPlayer player : players) {
             int ptr = (int) currentPtr;
             populateMemory(ptr, player.getInstructions(), player.getPrintWrapper());
@@ -265,7 +267,7 @@ public final class Memory {
      */
     private void populateEntireMemory() {
         randomCellGenerator = new Random(cellGenerationSeed);
-        for (int ptr = 0; ptr < memorySize; ++ptr) {
+        for (int ptr = BEGIN_ADDRESS_PTR; ptr < memorySize; ++ptr) {
             writeToMemory(ptr, generateNewMemoryContent(), null, true);
         }
     }
@@ -273,7 +275,7 @@ public final class Memory {
     @Override
     public String toString() {
         StringBuilder memoryBuilder = new StringBuilder();
-        for (int ptr = 0; ptr < memorySize; ptr++) {
+        for (int ptr = BEGIN_ADDRESS_PTR; ptr < memorySize; ptr++) {
             assert memory.containsKey(ptr);
             memoryBuilder.append(getSingleCharacterRepresentation(ptr));
         }
@@ -289,7 +291,7 @@ public final class Memory {
      */
     public String toString(int startAddressMarker, int endAddressMarker) {
         StringBuilder memoryBuilder = new StringBuilder();
-        for (int ptr = 0; ptr < memorySize; ptr++) {
+        for (int ptr = BEGIN_ADDRESS_PTR; ptr < memorySize; ptr++) {
             assert memory.containsKey(ptr);
             // Separate If Statements to account for start = end
             if (ptr == startAddressMarker) {

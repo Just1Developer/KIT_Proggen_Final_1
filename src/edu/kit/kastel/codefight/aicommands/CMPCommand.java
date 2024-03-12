@@ -10,17 +10,17 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public final class CMPCommand implements AICommand {
+final class CMPCommand implements AICommand {
     
     private final int argumentA;
     private final int argumentB;
     
     /**
-     * Constructs a new compare command.
+     * Constructs a new compare command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public CMPCommand(int argA, int argB) {
+    CMPCommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

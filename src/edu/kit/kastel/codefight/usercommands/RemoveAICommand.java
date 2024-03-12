@@ -11,6 +11,9 @@ import edu.kit.kastel.codefight.model.GamePhase;
  */
 final class RemoveAICommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 1;
+    private static final int ARGUMENTS_OPTIONAL = 0;
+    
     private static final String COMMAND_DESCRIPTION = "remove-ai: Removes an existing AI from Codefight. Format: remove-ai <name>";
     private static final String ERROR_UNKNOWN_NAME = "Could not find AI with name %s.";
     
@@ -31,12 +34,12 @@ final class RemoveAICommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 1;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 0;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override

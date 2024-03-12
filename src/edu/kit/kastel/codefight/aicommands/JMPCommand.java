@@ -8,17 +8,17 @@ import edu.kit.kastel.codefight.model.Memory;
  *
  * @author uwwfh
  */
-public final class JMPCommand implements AICommand {
+final class JMPCommand implements AICommand {
     
     private final int argumentA;
     private final int argumentB;
     
     /**
-     * Constructs a new jump command.
+     * Constructs a new jump command. Constructed by the CommandFactory.
      * @param argA The first argument.
      * @param argB The second argument.
      */
-    public JMPCommand(int argA, int argB) {
+    JMPCommand(int argA, int argB) {
         this.argumentA = argA;
         this.argumentB = argB;
     }

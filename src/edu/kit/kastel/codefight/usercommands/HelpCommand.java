@@ -12,6 +12,9 @@ import java.util.List;
  */
 final class HelpCommand implements Command {
     
+    private static final int ARGUMENTS_REQUIRED = 0;
+    private static final int ARGUMENTS_OPTIONAL = 0;
+    
     private static final String COMMAND_DESCRIPTION = "help: Displays all in this phase available commands.";
     
     /**
@@ -31,12 +34,12 @@ final class HelpCommand implements Command {
     
     @Override
     public int getRequiredArgumentCount() {
-        return 0;
+        return ARGUMENTS_REQUIRED;
     }
     
     @Override
     public int getOptionalArgumentCount() {
-        return 0;
+        return ARGUMENTS_OPTIONAL;
     }
     
     @Override
