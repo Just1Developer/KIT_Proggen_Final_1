@@ -56,8 +56,8 @@ public final class Main {
     private static final int MIN_ARGS_LENGTH = 9;
     private static final int MEMORY_CHARS_SIZE = 4;
     private static final int ARGS_INDEX_MEM_SIZE = 0;
-    private static final int ARGS_INDEX_BEGIN_MEM_CHARS = 0;
-    private static final int ARGS_INDEX_BEGIN_PLAYER_SYMBOLS = MEMORY_CHARS_SIZE + 1;
+    private static final int ARGS_INDEX_BEGIN_MEM_CHARS = 1;
+    private static final int ARGS_INDEX_BEGIN_PLAYER_SYMBOLS = MEMORY_CHARS_SIZE + ARGS_INDEX_BEGIN_MEM_CHARS;
     private static final int ARGS_PLAYER_SYMBOL_OTHER = 1;
     private static final int PLAYER_SYMBOL_AMOUNT = 2;
     private static final int INIT_MODE_STOP_SEED = 0;
