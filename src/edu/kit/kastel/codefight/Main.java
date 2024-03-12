@@ -55,6 +55,12 @@ public final class Main {
      */
     private static final int MIN_ARGS_LENGTH = 9;
     private static final int MEMORY_CHARS_SIZE = 4;
+    private static final int ARGS_INDEX_MEM_SIZE = 0;
+    private static final int ARGS_INDEX_BEGIN_MEM_CHARS = 0;
+    private static final int ARGS_INDEX_BEGIN_PLAYER_SYMBOLS = MEMORY_CHARS_SIZE + 1;
+    private static final int ARGS_PLAYER_SYMBOL_OTHER = 1;
+    private static final int PLAYER_SYMBOL_AMOUNT = 2;
+    private static final int INIT_MODE_STOP_SEED = 0;
     
     private static final String INVALID_ARGUMENTS_MESSAGE = "%sinvalid command line arguments.".formatted(CommandHandler.ERROR_PREFIX);
     private static final String ARGUMENTS_NOT_UNIQUE = "%sall character arguments must be unique!".formatted(CommandHandler.ERROR_PREFIX);
@@ -199,7 +205,7 @@ public final class Main {
         // Set up Memory
         int memSize;
         try {
-            memSize = Integer.parseInt(args[0]);
+            memSize = Integer.parseInt(args[ARGS_INDEX_MEM_SIZE]);
         } catch (NumberFormatException ignored) {
             return Optional.of(INVALID_ARGUMENTS_MESSAGE);
         }
@@ -210,30 +216,31 @@ public final class Main {
         
         // Set up Memory Symbols
         memoryChars = new String[MEMORY_CHARS_SIZE];
-        for (int i = 0; i < MEMORY_CHARS_SIZE; i++) {
+        for (int i = ARGS_INDEX_BEGIN_MEM_CHARS; i < MEMORY_CHARS_SIZE + ARGS_INDEX_BEGIN_MEM_CHARS; i++) {
             // Check validity
-            if (args[i + 1].contains(INVALID_SYMBOL_CHAR)) {
+            if (args[i].contains(INVALID_SYMBOL_CHAR)) {
                 return Optional.of(INVALID_ARGUMENTS_MESSAGE);
             }
             // Check uniqueness
-            if (!knownCharacters.add(args[i + 1])) {
+            if (!knownCharacters.add(args[i])) {
                 return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
-            memoryChars[i] = args[i + 1];
+            // Counter addition of begin index
+            memoryChars[i - ARGS_INDEX_BEGIN_MEM_CHARS] = args[i];
         }
         
         // Setup Print Wrappers
         printWrappers = new ArrayList<>();
-        for (int i = memoryChars.length + 1; i < args.length; i += 2) {
+        for (int i = ARGS_INDEX_BEGIN_PLAYER_SYMBOLS; i < args.length; i += PLAYER_SYMBOL_AMOUNT) {
             // Check validity
-            if (args[i].contains(INVALID_SYMBOL_CHAR) || args[i + 1].contains(INVALID_SYMBOL_CHAR)) {
+            if (args[i].contains(INVALID_SYMBOL_CHAR) || args[i + ARGS_PLAYER_SYMBOL_OTHER].contains(INVALID_SYMBOL_CHAR)) {
                 return Optional.of(INVALID_ARGUMENTS_MESSAGE);
             }
             // Check uniqueness
-            if (!knownCharacters.add(args[i]) || !knownCharacters.add(args[i + 1])) {
+            if (!knownCharacters.add(args[i]) || !knownCharacters.add(args[i + ARGS_PLAYER_SYMBOL_OTHER])) {
                 return Optional.of(ARGUMENTS_NOT_UNIQUE);
             }
-            printWrappers.add(new AIPrintWrapper(args[i], args[i + 1]));
+            printWrappers.add(new AIPrintWrapper(args[i], args[i + ARGS_PLAYER_SYMBOL_OTHER]));
         }
         
         return Optional.empty();
@@ -244,6 +251,6 @@ public final class Main {
      * @param size The size of the memory.
      */
     private static void setupMemory(int size) {
-        Codefight.initMemory(size, MemoryInitType.INIT_MODE_STOP, 0);
+        Codefight.initMemory(size, MemoryInitType.INIT_MODE_STOP, INIT_MODE_STOP_SEED);
     }
 }
