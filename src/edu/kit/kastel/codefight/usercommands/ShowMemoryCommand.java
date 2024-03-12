@@ -17,6 +17,7 @@ final class ShowMemoryCommand implements Command {
     private static final int ARGUMENTS_OPTIONAL = 1;
     
     private static final int DETAIL_SEGMENT_LENGTH = 10;
+    private static final int STRING_START_INDEX = 0;
     private static final String COMMAND_DESCRIPTION = ("show-memory: Shows the entire memory and, if specified, a small section (%d cells)"
             + " in greater detail. Format: show-memory [address of begin detailed segment]").formatted(DETAIL_SEGMENT_LENGTH);
     private static final String DETAIL_ADDRESS_NAN = "The address to begin the detailed section must be a number.";
@@ -61,15 +62,16 @@ final class ShowMemoryCommand implements Command {
         
         // Get the in total longest string representations for width of columns.
         // Does not take the symbol (left most) column into account.
+        // Also adds no padding for symbol length as that was not asked for.
         for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
             longestAddress = Math.max(longestAddress,
-                    getActualStringLength(Memory.sanitizeAddress(ptr + startAddress)));
+                    String.valueOf(Memory.sanitizeAddress(ptr + startAddress)).length());
             longestCmdName = Math.max(longestCmdName,
-                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getSavedCommandType()));
+                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getSavedCommandType()).length());
             longestEntryColA = Math.max(longestEntryColA,
-                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentA()));
+                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentA()).length());
             longestEntryColB = Math.max(longestEntryColB,
-                    getActualStringLength(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()));
+                    String.valueOf(Codefight.getMemory().readMemory(ptr + startAddress).getArgumentB()).length());
         }
         
         for (int ptr = 0; ptr < actualSegmentLength; ++ptr) {
@@ -119,21 +121,10 @@ final class ShowMemoryCommand implements Command {
     private String fillFront(Object value, int targetLength) {
         String strValue = String.valueOf(value);
         StringBuilder builder = new StringBuilder(strValue);
-        for (int i = 0; i < targetLength - getActualStringLength(strValue); ++i) {
-            builder.insert(0, SPACE);
+        for (int i = 0; i < targetLength - strValue.length(); ++i) {
+            builder.insert(STRING_START_INDEX, SPACE);
         }
         return builder.toString();
-    }
-    
-    /**
-     * Gets the actual length of a string while accounting for surrogate pairs, meaning
-     * Unicode characters that use up two chars.
-     * @param obj The Object. Will be converted to String using valueOf.
-     * @return The actual length of the String without counting some chars as two.
-     */
-    private int getActualStringLength(Object obj) {
-        String string = String.valueOf(obj);
-        return string.codePointCount(0, string.length());
     }
     
     @Override
